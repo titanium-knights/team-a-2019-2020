@@ -1,0 +1,33 @@
+name: Deploy to Github Pages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Generate docs
+        run: ./gradlew dokka
+      - name: Rename outputs
+        run: mv dokka/out/team-a-2019-2020 dokka/out/docs
+      - name: Create .nojekyll
+        run: touch dokka/out/.nojekyll
+      - name: Copy HTML files
+        run: cp dokka/*.html dokka/out
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@3.0.4
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BASE_BRANCH: master
+          BRANCH: gh-pages
+          FOLDER: dokka/out

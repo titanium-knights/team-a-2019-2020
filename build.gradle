@@ -29,7 +29,7 @@ allprojects {
 
 dokka {
     outputFormat = 'html'
-    outputDirectory = 'dokka'
+    outputDirectory = 'dokka/out'
 
     configuration {
         sourceRoot {
