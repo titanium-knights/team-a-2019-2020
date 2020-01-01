@@ -1,4 +1,4 @@
-name: Deploy to Github Pages
+name: Documentation
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  build-and-deploy:
+  dokka:
 
     runs-on: ubuntu-latest
 
