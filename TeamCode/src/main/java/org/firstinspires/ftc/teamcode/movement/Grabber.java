@@ -35,7 +35,7 @@ public class Grabber {
     }
 
     public static final double LIFT_POSITION = 0;
-    public static final double GRAB_POSITION = 0.8;
+    public static final double GRAB_POSITION = 1;
 
     public void lift() {
         setPosition(LIFT_POSITION);

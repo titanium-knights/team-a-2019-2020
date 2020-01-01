@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.movement.Grabber;
 import org.firstinspires.ftc.teamcode.movement.MecanumDrive;
 import org.firstinspires.ftc.teamcode.util.Button;
 
-@TeleOp(name = "Test Op Mode", group = "Tests")
+@TeleOp(name = "Test Op Mode (better)", group = "Tests")
 public class TestOpMode extends OpMode {
     private MecanumDrive drive;
     private Arm arm;
@@ -61,5 +61,7 @@ public class TestOpMode extends OpMode {
         } else if (grabberDecrementButton.wasPressed()) {
             grabber.move(-grabberMoveAmount);
         }
+
+        telemetry.addData("Grabber", grabber.getPosition());
     }
 }
