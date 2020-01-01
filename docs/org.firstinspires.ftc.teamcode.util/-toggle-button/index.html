@@ -1,0 +1,97 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ToggleButton - team-a-2019-2020</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">team-a-2019-2020</a>&nbsp;/&nbsp;<a href="../index.html">org.firstinspires.ftc.teamcode.util</a>&nbsp;/&nbsp;<a href="./index.html">ToggleButton</a><br/>
+<br/>
+<h1>ToggleButton</h1>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">ToggleButton</span></code>
+<p>Class that uses the <code><a href="../-button/index.html">Button</a></code> class to emulate a toggle button.</p>
+ 
+<p>Toggle buttons have a state, which represents whether they have been toggled on or off.</p>
+ 
+<p>You use a toggle button in a manner similar to that of <code><a href="../-button/index.html">Button</a></code>. See <code><a href="../-button/index.html">Button</a></code> for usage instructions.</p>
+ 
+<p>Bear in mind that this class is not a subclass of <code><a href="../-button/index.html">Button</a></code>.</p>
+ 
+<p>If using this class, <strong>do not</strong> call <code><a href="../-button/update.html">Button#update()</a></code> and <code><a href="update.html">ToggleButton#update()</a></code> in the same OpMode#loop() method. <code><a href="update.html">ToggleButton#update()</a></code> calls <code><a href="../-button/update.html">Button#update()</a></code> for you. Doing so yourself will result in undefined behavior.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-mode/index.html">Mode</a></h4>
+</td>
+<td>
+<p>Determines the behavior of the toggle button.</p>
+<code><span class="keyword">class </span><span class="identifier">Mode</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Constructs a ToggleButton using a <code><a href="../-button/index.html">Button</a></code> object, a mode, and a current state.</p>
+<code><span class="identifier">ToggleButton</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.ToggleButton$<init>(org.firstinspires.ftc.teamcode.util.Button, org.firstinspires.ftc.teamcode.util.ToggleButton.Mode, kotlin.Boolean)/button">button</span><span class="symbol">:</span>&nbsp;<a href="../-button/index.html"><span class="identifier">Button</span></a><span class="symbol">!</span><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.ToggleButton$<init>(org.firstinspires.ftc.teamcode.util.Button, org.firstinspires.ftc.teamcode.util.ToggleButton.Mode, kotlin.Boolean)/mode">mode</span><span class="symbol">:</span>&nbsp;<span class="identifier">Mode</span><span class="symbol">!</span><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.ToggleButton$<init>(org.firstinspires.ftc.teamcode.util.Button, org.firstinspires.ftc.teamcode.util.ToggleButton.Mode, kotlin.Boolean)/state">state</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span></code>
+<p>Constructs a ToggleButton using a <code><a href="../-button/index.html">Button</a></code> object and a mode. Sets the initial state to false.</p>
+<code><span class="identifier">ToggleButton</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.ToggleButton$<init>(org.firstinspires.ftc.teamcode.util.Button, org.firstinspires.ftc.teamcode.util.ToggleButton.Mode)/button">button</span><span class="symbol">:</span>&nbsp;<a href="../-button/index.html"><span class="identifier">Button</span></a><span class="symbol">!</span><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.ToggleButton$<init>(org.firstinspires.ftc.teamcode.util.Button, org.firstinspires.ftc.teamcode.util.ToggleButton.Mode)/mode">mode</span><span class="symbol">:</span>&nbsp;<span class="identifier">Mode</span><span class="symbol">!</span><span class="symbol">)</span></code>
+<p>Constructs a ToggleButton that tracks a <code><a href="../-button/index.html">Button</a></code> object. Sets the initial state to false, and toggles the button as soon as it is pressed.</p>
+<code><span class="identifier">ToggleButton</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.ToggleButton$<init>(org.firstinspires.ftc.teamcode.util.Button)/button">button</span><span class="symbol">:</span>&nbsp;<a href="../-button/index.html"><span class="identifier">Button</span></a><span class="symbol">!</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="get-button.html">getButton</a></h4>
+</td>
+<td>
+<p>Returns the toggle button's underlying <code><a href="../-button/index.html">Button</a></code> instance.</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getButton</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-button/index.html"><span class="identifier">Button</span></a><span class="symbol">!</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-state.html">getState</a></h4>
+</td>
+<td>
+<p>Returns the current state (whether the button is on or off.)</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getState</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="make.html">make</a></h4>
+</td>
+<td>
+<p>Makes a toggle button using a gamepad and a button name. Sets the initial state to false, and toggles the button as soon as it is pressed.</p>
+<code><span class="keyword">open</span> <span class="keyword">static</span> <span class="keyword">fun </span><span class="identifier">make</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.ToggleButton$make(Gamepad, kotlin.String)/gamepad">gamepad</span><span class="symbol">:</span>&nbsp;<span class="identifier">Gamepad</span><span class="symbol">!</span><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.ToggleButton$make(Gamepad, kotlin.String)/buttonName">buttonName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">ToggleButton</span></a><span class="symbol">!</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="toggle.html">toggle</a></h4>
+</td>
+<td>
+<p>Toggles the button's state programmatically.</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">toggle</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="update.html">update</a></h4>
+</td>
+<td>
+<p>Updates the underlying button, then toggle the toggle button's state if the button was pushed.</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">update</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

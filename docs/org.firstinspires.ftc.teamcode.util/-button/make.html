@@ -1,0 +1,27 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Button.make - team-a-2019-2020</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">team-a-2019-2020</a>&nbsp;/&nbsp;<a href="../index.html">org.firstinspires.ftc.teamcode.util</a>&nbsp;/&nbsp;<a href="index.html">Button</a>&nbsp;/&nbsp;<a href="./make.html">make</a><br/>
+<br/>
+<h1>make</h1>
+<a name="org.firstinspires.ftc.teamcode.util.Button$make(Gamepad, kotlin.String)"></a>
+<code><span class="keyword">open</span> <span class="keyword">static</span> <span class="keyword">fun </span><span class="identifier">make</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.Button$make(Gamepad, kotlin.String)/gamepad">gamepad</span><span class="symbol">:</span>&nbsp;<span class="identifier">Gamepad</span><span class="symbol">!</span><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.Button$make(Gamepad, kotlin.String)/buttonName">buttonName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html"><span class="identifier">Button</span></a><span class="symbol">!</span></code>
+<p>Makes a button using a gamepad and a button name.</p>
+ 
+<p>This method obtains the field automatically, so most op modes will use this method to create instances of <code><a href="index.html">Button</a></code>.</p>
+<h3>Parameters</h3>
+<p><a name="gamepad"></a>
+<code>gamepad</code> - <span class="identifier">Gamepad</span><span class="symbol">!</span><span class="symbol">:</span> gamepad to track.</p>
+<p><a name="buttonName"></a>
+<code>buttonName</code> - <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">!</span><span class="symbol">:</span> name of the button to track. Must be the name of a boolean property of Gamepad.</p>
+<h3>Exceptions</h3>
+<p><a name="IllegalArgumentException"></a>
+<code>IllegalArgumentException</code> - if the given button name does not exist on the gamepad.</p>
+<p><strong>Return</strong><br/>
+<a href="index.html"><span class="identifier">Button</span></a><span class="symbol">!</span><span class="symbol">:</span> a gamepad that tracks a button on a gamepad.</p>
+</BODY>
+</HTML>

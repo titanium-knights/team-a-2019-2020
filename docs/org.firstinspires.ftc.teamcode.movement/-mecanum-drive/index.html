@@ -1,0 +1,182 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MecanumDrive - team-a-2019-2020</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">team-a-2019-2020</a>&nbsp;/&nbsp;<a href="../index.html">org.firstinspires.ftc.teamcode.movement</a>&nbsp;/&nbsp;<a href="./index.html">MecanumDrive</a><br/>
+<br/>
+<h1>MecanumDrive</h1>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">MecanumDrive</span></code>
+<p>Class representing four DcMotors that comprise a Mecanum drive; in other words, the drive we're using on our robot.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-motor/index.html">Motor</a></h4>
+</td>
+<td>
+<p>Class representing a motor used in a mecanum drive.</p>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">Motor</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-power-behavior/index.html">PowerBehavior</a></h4>
+</td>
+<td>
+<p>An enum representing what to do when a power exceeds a motor's limits.</p>
+<code><span class="keyword">class </span><span class="identifier">PowerBehavior</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-turn-behavior/index.html">TurnBehavior</a></h4>
+</td>
+<td>
+<p>An enum representing how turning should be calculated.</p>
+<code><span class="keyword">class </span><span class="identifier">TurnBehavior</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Constructs a MecanumDrive using the specified set of motors</p>
+<code><span class="identifier">MecanumDrive</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.movement.MecanumDrive$<init>(kotlin.Array((org.firstinspires.ftc.teamcode.movement.MecanumDrive.Motor)))/motors">motors</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><span class="identifier">Motor</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="power-behavior.html">powerBehavior</a></h4>
+</td>
+<td>
+<p>What to do when a power exceeds a motor's limits.</p>
+<code><span class="keyword">var </span><span class="identifier">powerBehavior</span><span class="symbol">: </span><span class="identifier">PowerBehavior</span><span class="symbol">!</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="forward-with-power.html">forwardWithPower</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">forwardWithPower</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.movement.MecanumDrive$forwardWithPower(kotlin.Double)/power">power</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="forward-with-speed.html">forwardWithSpeed</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">forwardWithSpeed</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.movement.MecanumDrive$forwardWithSpeed(kotlin.Double)/power">power</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-motors.html">getMotors</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getMotors</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><span class="identifier">DcMotor</span><span class="symbol">!</span><span class="symbol">&gt;</span><span class="symbol">!</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="move.html">move</a></h4>
+</td>
+<td>
+<p>Moves in a given direction at a given power while turning towards a given direction</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">move</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.movement.MecanumDrive$move(kotlin.Double, org.firstinspires.ftc.teamcode.movement.MecanumDrive.Motor.Vector2D, kotlin.Double, org.firstinspires.ftc.teamcode.movement.MecanumDrive.TurnBehavior)/power">power</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.movement.MecanumDrive$move(kotlin.Double, org.firstinspires.ftc.teamcode.movement.MecanumDrive.Motor.Vector2D, kotlin.Double, org.firstinspires.ftc.teamcode.movement.MecanumDrive.TurnBehavior)/vector">vector</span><span class="symbol">:</span>&nbsp;<span class="identifier">Vector2D</span><span class="symbol">!</span><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.movement.MecanumDrive$move(kotlin.Double, org.firstinspires.ftc.teamcode.movement.MecanumDrive.Motor.Vector2D, kotlin.Double, org.firstinspires.ftc.teamcode.movement.MecanumDrive.TurnBehavior)/turn">turn</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.movement.MecanumDrive$move(kotlin.Double, org.firstinspires.ftc.teamcode.movement.MecanumDrive.Motor.Vector2D, kotlin.Double, org.firstinspires.ftc.teamcode.movement.MecanumDrive.TurnBehavior)/turnBehavior">turnBehavior</span><span class="symbol">:</span>&nbsp;<span class="identifier">TurnBehavior</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Moves in a given direction at a given power while turning towards a given direction. Uses MULTIPLY for the turn behavior.</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">move</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.movement.MecanumDrive$move(kotlin.Double, org.firstinspires.ftc.teamcode.movement.MecanumDrive.Motor.Vector2D, kotlin.Double)/power">power</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.movement.MecanumDrive$move(kotlin.Double, org.firstinspires.ftc.teamcode.movement.MecanumDrive.Motor.Vector2D, kotlin.Double)/vector">vector</span><span class="symbol">:</span>&nbsp;<span class="identifier">Vector2D</span><span class="symbol">!</span><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.movement.MecanumDrive$move(kotlin.Double, org.firstinspires.ftc.teamcode.movement.MecanumDrive.Motor.Vector2D, kotlin.Double)/turn">turn</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="reset.html">reset</a></h4>
+</td>
+<td>
+<p>Stops and resets each of the motors and their encoders.</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">reset</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="set-motor-mode.html">setMotorMode</a></h4>
+</td>
+<td>
+<p>Sets each of the drive's motors to a given mode.</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">setMotorMode</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.movement.MecanumDrive$setMotorMode(DcMotor.RunMode)/mode">mode</span><span class="symbol">:</span>&nbsp;<span class="identifier">RunMode</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="standard.html">standard</a></h4>
+</td>
+<td>
+<p>Given only a hardware map, constructs a ready-to-use mecanum drive with preset motors.</p>
+<code><span class="keyword">open</span> <span class="keyword">static</span> <span class="keyword">fun </span><span class="identifier">standard</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.movement.MecanumDrive$standard(HardwareMap)/hardwareMap">hardwareMap</span><span class="symbol">:</span>&nbsp;<span class="identifier">HardwareMap</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">MecanumDrive</span></a><span class="symbol">!</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="steer-with-power.html">steerWithPower</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">steerWithPower</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.movement.MecanumDrive$steerWithPower(kotlin.Double, kotlin.Double)/power">power</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.movement.MecanumDrive$steerWithPower(kotlin.Double, kotlin.Double)/turn">turn</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="steer-with-speed.html">steerWithSpeed</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">steerWithSpeed</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.movement.MecanumDrive$steerWithSpeed(kotlin.Double, kotlin.Double)/speed">speed</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.movement.MecanumDrive$steerWithSpeed(kotlin.Double, kotlin.Double)/turn">turn</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="stop.html">stop</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">stop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="strafe-left-with-power.html">strafeLeftWithPower</a></h4>
+</td>
+<td>
+<p>Strafes left at a given power (i.e. without encoder).</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">strafeLeftWithPower</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.movement.MecanumDrive$strafeLeftWithPower(kotlin.Double)/power">power</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="strafe-left-with-speed.html">strafeLeftWithSpeed</a></h4>
+</td>
+<td>
+<p>Strafes left at a given speed (i.e. with encoder).</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">strafeLeftWithSpeed</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.movement.MecanumDrive$strafeLeftWithSpeed(kotlin.Double)/speed">speed</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="strafe-right-with-power.html">strafeRightWithPower</a></h4>
+</td>
+<td>
+<p>Strafes right at a given power (i.e. without encoder).</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">strafeRightWithPower</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.movement.MecanumDrive$strafeRightWithPower(kotlin.Double)/power">power</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="strafe-right-with-speed.html">strafeRightWithSpeed</a></h4>
+</td>
+<td>
+<p>Strafes right at a given speed (i.e. with encoder).</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">strafeRightWithSpeed</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.movement.MecanumDrive$strafeRightWithSpeed(kotlin.Double)/speed">speed</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

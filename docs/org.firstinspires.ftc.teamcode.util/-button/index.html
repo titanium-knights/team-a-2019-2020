@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Button - team-a-2019-2020</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">team-a-2019-2020</a>&nbsp;/&nbsp;<a href="../index.html">org.firstinspires.ftc.teamcode.util</a>&nbsp;/&nbsp;<a href="./index.html">Button</a><br/>
+<br/>
+<h1>Button</h1>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">Button</span></code>
+<p>Class that tracks a button on the gamepad and determines if it has been bumped (pressed then released).</p>
+ 
+<p>Used to emulate push buttons in the FTC SDK.</p>
+ Basic Usage 
+<p>To use this class, create a Button instance using <code><a href="make.html">Button#make(Gamepad, String)</a></code> during the OpMode#init() method. Pass <code><a href="make.html">Button#make(Gamepad, String)</a></code> a gamepad (OpMode#gamepad1 or OpMode#gamepad2) and the name of a button on the gamepad (such as "dpad_left" or "x".)</p>
+ 
+<p>Then, at the beginning of the OpMode#loop() method, call <code><a href="update.html">Button#update()</a></code>..</p>
+ 
+<p>Finally, to determine whether the button has been pushed/bumped, use <code><a href="was-pressed.html">Button#wasPressed()</a></code> or <code><a href="was-released.html">Button#wasReleased()</a></code>.</p>
+ 
+<p>See <code><a href="../../org.firstinspires.ftc.teamcode/-test-op-mode/index.html">org.firstinspires.ftc.teamcode.TestOpMode</a></code> for an example of how Button can be used.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>Constructs a button that tracks a field on a gamepad.</p>
+<code><span class="identifier">Button</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.Button$<init>(Gamepad, java.lang.reflect.Field)/gamepad">gamepad</span><span class="symbol">:</span>&nbsp;<span class="identifier">Gamepad</span><span class="symbol">!</span><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.Button$<init>(Gamepad, java.lang.reflect.Field)/field">field</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Field.html"><span class="identifier">Field</span></a><span class="symbol">!</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="make.html">make</a></h4>
+</td>
+<td>
+<p>Makes a button using a gamepad and a button name.</p>
+<code><span class="keyword">open</span> <span class="keyword">static</span> <span class="keyword">fun </span><span class="identifier">make</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.Button$make(Gamepad, kotlin.String)/gamepad">gamepad</span><span class="symbol">:</span>&nbsp;<span class="identifier">Gamepad</span><span class="symbol">!</span><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.Button$make(Gamepad, kotlin.String)/buttonName">buttonName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Button</span></a><span class="symbol">!</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="update.html">update</a></h4>
+</td>
+<td>
+<p>Updates the button's state, allowing it to track changes over time.</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">update</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="was-pressed.html">wasPressed</a></h4>
+</td>
+<td>
+<p>Returns whether the button was released, then pressed.</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">wasPressed</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="was-released.html">wasReleased</a></h4>
+</td>
+<td>
+<p>Returns whether the button was pressed, then released.</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">wasReleased</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

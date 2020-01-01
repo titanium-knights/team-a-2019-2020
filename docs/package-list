@@ -1,0 +1,7 @@
+$dokka.format:html
+$dokka.linkExtension:html
+
+org.firstinspires.ftc.teamcode
+org.firstinspires.ftc.teamcode.movement
+org.firstinspires.ftc.teamcode.sensors
+org.firstinspires.ftc.teamcode.util
