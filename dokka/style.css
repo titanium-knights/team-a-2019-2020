@@ -1,0 +1,66 @@
+@import url('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
+@import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700&display=swap');
+
+body {
+    max-width: 1440px;
+    margin: auto;
+    padding: 32px;
+    font-family: Quicksand, sans-serif;
+}
+
+body > a:first-child::before {
+    content: "Titanium Knights Team A 2019-2020 Docs: ";
+    font-weight: bold;
+}
+
+br + h2 {
+    font-weight: bold;
+    margin-bottom: 3rem;
+}
+
+code + h3 {
+    margin-top: 2rem;
+}
+
+table {
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+table h4 {
+    font-size: 1rem;
+    margin: 0;
+}
+
+table td {
+    padding-right: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    vertical-align: middle;
+}
+
+table tr {
+    border-bottom: 1px solid #CCCCCC;
+}
+
+table tr:last-child {
+    border-bottom: none;
+}
+
+.keyword {
+    color: #b030ae;
+}
+
+.symbol {
+    color: #aaaaaa;
+}
+
+.identifier {
+    color: #1c9c67;
+    font-weight: bold;
+}
+
+a .identifier {
+    color: inherit;
+}

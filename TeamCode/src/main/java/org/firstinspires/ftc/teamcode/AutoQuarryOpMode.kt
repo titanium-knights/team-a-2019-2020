@@ -1,24 +1,19 @@
 package org.firstinspires.ftc.teamcode
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.hardware.ColorSensor
 import org.firstinspires.ftc.teamcode.movement.Grabber
 import org.firstinspires.ftc.teamcode.sensors.StandardSensors
 import org.firstinspires.ftc.teamcode.util.AutoBaseOpMode
-import org.firstinspires.ftc.teamcode.util.AutoFieldSide
 import org.firstinspires.ftc.teamcode.util.drive
 import org.firstinspires.ftc.teamcode.util.set
-import java.lang.NullPointerException
-
-const val MILLISECONDS_PER_INCH = 0.0
 
 fun ColorSensor.skystoneDetected(): Boolean {
-    return alpha() < 20
+    return alpha() < 10
 }
 
-class AutoQuarryOpMode(
-        private val colorModifier: Double,
-        private val crossVia: AutoFieldSide,
-        private val parkDestination: AutoFieldSide
+open class AutoQuarryOpMode(
+        private val colorModifier: Double
 ): AutoBaseOpMode(MILLISECONDS_PER_INCH) {
     private val grabber: Grabber by lazy { Grabber.standard(hardwareMap) }
     private val colorSensor: ColorSensor by lazy { StandardSensors(hardwareMap).colorSensor }
@@ -26,7 +21,6 @@ class AutoQuarryOpMode(
     private var skystonePos = 0 // 0 is stone at center
 
     private val grabberTime = 1000L
-    private val inchesToWall = 28
 
     override fun runOpMode() {
         if (colorSensor.argb() == 0) {
@@ -62,9 +56,23 @@ class AutoQuarryOpMode(
         grabber.grab()
         sleep(grabberTime)
 
-        // If we're crossing the skybridge via the wall side, move backwards
-        if (crossVia == AutoFieldSide.WALL) {
-            drive(0, -1, inchesToWall)
-        }
+        // Push back
+        drive(0.0, -1.0, 2.0)
+
+        // Cross skybridge
+        drive(-colorModifier, 0.0, skystonePos * 6.0 + 36.0)
+
+        // Release stone
+        grabber.lift()
+        sleep(grabberTime)
+
+        // Park
+        drive(colorModifier, 0.0, 12.0)
     }
 }
+
+@Autonomous(name = "Quarry - Red", group = "Quarry")
+class AutoQuarryRedOpMode: AutoQuarryOpMode(1.0)
+
+@Autonomous(name = "Quarry - Blue", group = "Quarry")
+class AutoQuarryBlueOpMode: AutoQuarryOpMode(-1.0)

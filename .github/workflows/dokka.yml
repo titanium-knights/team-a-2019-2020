@@ -24,6 +24,8 @@ jobs:
         run: touch dokka/out/.nojekyll
       - name: Copy HTML files
         run: cp dokka/*.html dokka/out
+      - name: Copy CSS files
+        run: cp dokka/*.css dokka/out
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.0.4
         with:
