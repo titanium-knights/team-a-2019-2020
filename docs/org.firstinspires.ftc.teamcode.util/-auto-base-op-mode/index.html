@@ -9,6 +9,7 @@
 <br/>
 <h1>AutoBaseOpMode</h1>
 <code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">AutoBaseOpMode</span></code>
+<p>Boilerplate linear op mode for autonomous programs.</p>
 <h3>Constructors</h3>
 <table>
 <tbody>
@@ -17,6 +18,7 @@
 <h4><a href="-init-.html">&lt;init&gt;</a></h4>
 </td>
 <td>
+<p>Boilerplate linear op mode for autonomous programs.</p>
 <code><span class="identifier">AutoBaseOpMode</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.AutoBaseOpMode$<init>(kotlin.Double)/msPerInch">msPerInch</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span></code></td>
 </tr>
 </tbody>
@@ -29,6 +31,7 @@
 <h4><a href="drive.html">drive</a></h4>
 </td>
 <td>
+<p>The robot's mecanum drive.</p>
 <code><span class="keyword">val </span><span class="identifier">drive</span><span class="symbol">: </span><a href="../../org.firstinspires.ftc.teamcode.movement/-mecanum-drive/index.html"><span class="identifier">MecanumDrive</span></a></code></td>
 </tr>
 <tr>
@@ -36,6 +39,7 @@
 <h4><a href="ms-per-inch.html">msPerInch</a></h4>
 </td>
 <td>
+<p>Number of milliseconds to move the motors to drive one inch.</p>
 <code><span class="keyword">val </span><span class="identifier">msPerInch</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
 </tr>
 </tbody>
@@ -48,6 +52,7 @@
 <h4><a href="run-op-mode.html">runOpMode</a></h4>
 </td>
 <td>
+<p>Contains code to run during the op mode. Override this method to implement your own subclass of AutoBaseOpMode.</p>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">runOpMode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 </tbody>
@@ -60,7 +65,9 @@
 <h4><a href="../drive.html">drive</a></h4>
 </td>
 <td>
-<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">AutoBaseOpMode</span></a><span class="symbol">.</span><span class="identifier">drive</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$drive(org.firstinspires.ftc.teamcode.util.AutoBaseOpMode, kotlin.Double, kotlin.Double, kotlin.Double)/x">x</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$drive(org.firstinspires.ftc.teamcode.util.AutoBaseOpMode, kotlin.Double, kotlin.Double, kotlin.Double)/y">y</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$drive(org.firstinspires.ftc.teamcode.util.AutoBaseOpMode, kotlin.Double, kotlin.Double, kotlin.Double)/inches">inches</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<p>Drives the motors at a specified direction for a specified number of inches.</p>
+<code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">AutoBaseOpMode</span></a><span class="symbol">.</span><span class="identifier">drive</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$drive(org.firstinspires.ftc.teamcode.util.AutoBaseOpMode, kotlin.Double, kotlin.Double, kotlin.Double)/x">x</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$drive(org.firstinspires.ftc.teamcode.util.AutoBaseOpMode, kotlin.Double, kotlin.Double, kotlin.Double)/y">y</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$drive(org.firstinspires.ftc.teamcode.util.AutoBaseOpMode, kotlin.Double, kotlin.Double, kotlin.Double)/inches">inches</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Overload for the drive extension function.</p>
 <code><span class="keyword">fun </span><a href="./index.html"><span class="identifier">AutoBaseOpMode</span></a><span class="symbol">.</span><span class="identifier">drive</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$drive(org.firstinspires.ftc.teamcode.util.AutoBaseOpMode, kotlin.Int, kotlin.Int, kotlin.Int)/x">x</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$drive(org.firstinspires.ftc.teamcode.util.AutoBaseOpMode, kotlin.Int, kotlin.Int, kotlin.Int)/y">y</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$drive(org.firstinspires.ftc.teamcode.util.AutoBaseOpMode, kotlin.Int, kotlin.Int, kotlin.Int)/inches">inches</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 </tbody>
@@ -68,6 +75,13 @@
 <h3>Inheritors</h3>
 <table>
 <tbody>
+<tr>
+<td>
+<h4><a href="../../org.firstinspires.ftc.teamcode/-auto-foundation-op-mode/index.html">AutoFoundationOpMode</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">AutoFoundationOpMode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">AutoBaseOpMode</span></a></code></td>
+</tr>
 <tr>
 <td>
 <h4><a href="../../org.firstinspires.ftc.teamcode/-auto-quarry-op-mode/index.html">AutoQuarryOpMode</a></h4>
