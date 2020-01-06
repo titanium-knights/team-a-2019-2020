@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Gyro - team-a-2019-2020</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">team-a-2019-2020</a>&nbsp;/&nbsp;<a href="../index.html">org.firstinspires.ftc.teamcode.sensors</a>&nbsp;/&nbsp;<a href="./index.html">Gyro</a><br/>
+<br/>
+<h1>Gyro</h1>
+<code><span class="keyword">interface </span><span class="identifier">Gyro</span></code>
+<p>Public interface representing the set of methods every single gyro sensor is guaranteed to implement.
+This makes it useful for creating op modes that work for any gyro sensors other than the IMUGyro.</p>
+<p>For the uninitiated, a gyro sensor measures the orientation of a robot. That's it. That's all it does.</p>
+<p>You do not construct instances of Gyro directly; instead, you use a subclass such as IMUGyro.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="angle.html">angle</a></h4>
+</td>
+<td>
+<p>Returns the angle that the robot is facing.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">angle</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="is-calibrated.html">isCalibrated</a></h4>
+</td>
+<td>
+<p>Whether the gyro has been successfully calibrated.
+See GyroTestOpMode for a demonstration of how to wait for a gyro to calibrate.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">isCalibrated</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="calibrate.html">calibrate</a></h4>
+</td>
+<td>
+<p>Calibrates the gyro, or begins the calibration process. Usually called immediately after initialize.
+Implementation details vary by specific gyro sensor.
+In some cases, you may have to wait a few seconds before the gyro is calibrated. See isCalibrated.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">calibrate</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="initialize.html">initialize</a></h4>
+</td>
+<td>
+<p>Initializes the gyro. Usually called in an op mode's init phase.
+Implementation details vary by specific gyro sensor.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">initialize</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="../-b-n-o055-i-m-u-gyro/index.html">BNO055IMUGyro</a></h4>
+</td>
+<td>
+<p>A Gyro instance that uses the REV Robotic Expansion Hub's built-in gyro sensor (IMU) to obtain measurements.</p>
+<code><span class="keyword">class </span><span class="identifier">BNO055IMUGyro</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Gyro</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
