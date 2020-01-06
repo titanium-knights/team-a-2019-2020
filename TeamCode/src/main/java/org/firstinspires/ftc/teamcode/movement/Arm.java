@@ -101,8 +101,8 @@ public class Arm {
     private static String ARM_HORIZONTAL_NAME = "arm_horizontal";
     private static String ARM_VERTICAL_NAME = "arm_vertical";
 
-    private static double ARM_HORIZONTAL_MULTIPLIER = -1;
-    private static double ARM_VERTICAL_MULTIPLIER = 1;
+    private static double ARM_HORIZONTAL_MULTIPLIER = 1;
+    private static double ARM_VERTICAL_MULTIPLIER = -1;
 
     /**
      * <p>Returns an Arm object preconfigured for our robot.</p>

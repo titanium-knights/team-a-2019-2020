@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
  *
  * <p>Used to emulate push buttons in the FTC SDK.</p>
  *
- * <h4>Basic Usage</h4>
+ * <h3>Basic Usage</h3>
  * <p>To use this class, create a Button instance using {@link Button#make(Gamepad, String)} during the {@link OpMode#init()} method.
  * Pass {@link Button#make(Gamepad, String)} a gamepad ({@link OpMode#gamepad1} or {@link OpMode#gamepad2}) and the name of a button
  * on the gamepad (such as "dpad_left" or "x".)</p>

@@ -2,4 +2,7 @@
 
 package org.firstinspires.ftc.teamcode
 
-const val MILLISECONDS_PER_INCH = 0.0
+/**
+ * Number of milliseconds the robot takes to move one inch.
+ */
+const val MILLISECONDS_PER_INCH = 3000.0 / 66.0 // 3 seconds to move 66 inches

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.util
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import org.firstinspires.ftc.teamcode.movement.MecanumDrive
+import kotlin.math.abs
 
 /**
  * Boilerplate linear op mode for autonomous programs.
@@ -33,8 +34,12 @@ open class AutoBaseOpMode(
  * @param inches number of inches to move and wait for.
  */
 fun AutoBaseOpMode.drive(x: Double, y: Double, inches: Double) {
-    drive.move(1.0, MecanumDrive.Motor.Vector2D(x, y), 0.0)
-    sleep((msPerInch * inches).toLong())
+    if (inches < 0) {
+        drive.move(-1.0, MecanumDrive.Motor.Vector2D(x, y), 0.0)
+    } else {
+        drive.move(1.0, MecanumDrive.Motor.Vector2D(x, y), 0.0)
+    }
+    sleep((msPerInch * abs(inches)).toLong())
     drive.stop()
 }
 
