@@ -50,13 +50,13 @@ open class AutoQuarryOpMode(
         sleep(500L)
 
         // Move 1 inch away from the edge of the stone away from the center
-        drive(colorModifier / 2, 0.0, 15.5 * 2)
+        drive(colorModifier / 2, 0.0, 14.0 * 2)
 
         // For each stone, see if it's the skystone, then move right and check the next one
         var minLuminosity = Int.MAX_VALUE
         var lumLog = ""
         for (pos in 2 downTo 0) {
-            sleep(500L)
+            sleep(4000L)
 
             val luminosity = colorSensor.alpha()
             if (luminosity < minLuminosity) {
@@ -78,7 +78,7 @@ open class AutoQuarryOpMode(
         }
 
         // Grab stone and wait for grabber to finish
-        val inchesToMove = skystonePos * 8.0 - 3.0
+        val inchesToMove = skystonePos * 8.0 - 1.5
         drive(colorModifier, 0.0, inchesToMove)
 
         drive(0.0, 0.5, 4.0 * 2)
@@ -86,11 +86,11 @@ open class AutoQuarryOpMode(
         sleep(grabberTime)
 
         arm.setVerticalPower(1.0)
-        sleep(1000L)
+        sleep(750L)
         arm.stop()
 
         // Push back
-        drive(0.0, -0.5, 2.0 * 2)
+        drive(0.0, -0.5, 4.0 * 2)
 
         telemetry["Starting Direction"] = startingDir
         telemetry["Current Angle"] = gyro.angle
@@ -117,6 +117,22 @@ open class AutoQuarryOpMode(
             drive.stop()
         }
 
+        // Cross skybridge
+        drive(-colorModifier, 0.0, skystonePos * 8.0 + 48.0)
+
+        // Release stone
+        grabber.lift()
+        sleep(grabberTime)
+        grabber.grab()
+        sleep(grabberTime)
+
+        // Park
+        drive(colorModifier, 0.0, 12.0)
+
+        arm.setVerticalPower(-1.0)
+        sleep(750L)
+        arm.stop()
+
         while (opModeIsActive()) {
             telemetry["Starting Direction"] = startingDir
             telemetry["Current Angle"] = gyro.angle
@@ -127,17 +143,6 @@ open class AutoQuarryOpMode(
 
             idle()
         }
-
-        /*
-        // Cross skybridge
-        drive(-colorModifier, 0.0, skystonePos * 6.0 + 36.0)
-
-        // Release stone
-        grabber.lift()
-        sleep(grabberTime)
-
-        // Park
-        drive(colorModifier, 0.0, 12.0) */
     }
 }
 
