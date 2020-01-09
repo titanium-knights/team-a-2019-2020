@@ -62,8 +62,8 @@ class BNO055IMUGyro(val imu: BNO055IMU, val parameters: BNO055IMU.Parameters): G
      */
     val angleModifier = -1.0
 
-    override val angle =
-            imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.YXZ, AngleUnit.DEGREES).firstAngle.toDouble() * angleModifier
+    override val angle get() =
+            imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle.toDouble() * angleModifier
 
     companion object {
         val IMU_NAME = "imu"

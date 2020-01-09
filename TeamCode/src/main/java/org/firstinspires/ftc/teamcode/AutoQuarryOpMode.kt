@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.hardware.ColorSensor
+import com.qualcomm.robotcore.hardware.DcMotor
 import org.firstinspires.ftc.teamcode.movement.Arm
 import org.firstinspires.ftc.teamcode.movement.Grabber
 import org.firstinspires.ftc.teamcode.sensors.BNO055IMUGyro
@@ -46,19 +47,21 @@ open class AutoQuarryOpMode(
         colorSensor.enableLed(false)
 
         // Move towards the third stone from center
-        drive(0.0, 1.0, 24.0)
+        val voltage = hardwareMap.voltageSensor.map { it.voltage }.minBy { if (it < 0) Double.MAX_VALUE else it } ?: Double.MAX_VALUE
+        val maxPower = if (voltage < 13.5) 1.0 else 0.85
+        drive(0.0, maxPower, 26.0)
         sleep(500L)
 
         // Move 1 inch away from the edge of the stone away from the center
         drive(colorModifier / 2, 0.0, 14.0 * 2)
 
         // For each stone, see if it's the skystone, then move right and check the next one
-        var minLuminosity = Int.MAX_VALUE
+        var minLuminosity = Double.MAX_VALUE
         var lumLog = ""
         for (pos in 2 downTo 0) {
-            sleep(4000L)
+            sleep(500L)
 
-            val luminosity = colorSensor.alpha()
+            val luminosity = colorSensor.red().toDouble() / colorSensor.green()
             if (luminosity < minLuminosity) {
                 skystonePos = pos
                 minLuminosity = luminosity
@@ -70,27 +73,31 @@ open class AutoQuarryOpMode(
             telemetry["Skystone Position"] = skystonePos
             telemetry["Luminosity"] = lumLog
             telemetry["Luminosity (min)"] = minLuminosity
+            telemetry["Arm Pos"] = arm.verticalMotor.currentPosition
             telemetry.update()
 
             if (pos > 0) {
-                drive(-colorModifier / 2, 0.0, 8.0 * 2)
+                drive(-colorModifier / 2, 0.0, 8.0 * 2 / 8 * 6.5)
             }
         }
 
         // Grab stone and wait for grabber to finish
-        val inchesToMove = skystonePos * 8.0 - 1.5
+        val inchesToMove = skystonePos * 8.0 - 4
         drive(colorModifier, 0.0, inchesToMove)
 
-        drive(0.0, 0.5, 4.0 * 2)
+        drive(0.0, 0.5, 2.0 * 2)
         grabber.grab()
         sleep(grabberTime)
 
+        arm.verticalMotor.targetPosition = arm.verticalMotor.currentPosition + 80
+        arm.verticalMotor.mode = DcMotor.RunMode.RUN_TO_POSITION
         arm.setVerticalPower(1.0)
-        sleep(750L)
+        sleep(2000L)
         arm.stop()
+        arm.verticalMotor.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
 
         // Push back
-        drive(0.0, -0.5, 4.0 * 2)
+        drive(0.0, -0.5, 4.0 * 2 * maxPower)
 
         telemetry["Starting Direction"] = startingDir
         telemetry["Current Angle"] = gyro.angle
@@ -102,18 +109,10 @@ open class AutoQuarryOpMode(
         // Correct for any drift
         val postGrabDir = gyro.angle
         if (abs(postGrabDir - startingDir) > 2) {
-            if (postGrabDir > startingDir) {
-                drive.steerWithPower(0.2, -1.0)
-                while (gyro.angle - startingDir > 2) {
-                    idle()
-                }
-            } else {
-                drive.steerWithPower(0.2, 1.0)
-                while (startingDir - gyro.angle > 2) {
-                    idle()
-                }
+            drive.steerWithPower(0.2, 1.0)
+            while (abs(startingDir - gyro.angle) > 2) {
+                idle()
             }
-
             drive.stop()
         }
 

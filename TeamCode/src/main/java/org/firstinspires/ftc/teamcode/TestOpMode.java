@@ -88,5 +88,6 @@ public class TestOpMode extends OpMode {
 
         telemetry.addData("Grabber", grabber.getPosition());
         telemetry.addData("Clamp", clamps.getServo().getPosition());
+        telemetry.addData("Arm Pos", arm.getVerticalMotor().getCurrentPosition());
     }
 }
