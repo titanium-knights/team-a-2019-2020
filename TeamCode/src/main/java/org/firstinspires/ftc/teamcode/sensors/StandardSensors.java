@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.sensors;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
@@ -25,4 +26,13 @@ public class StandardSensors {
     public ColorSensor getColorSensor() {
         return hardwareMap.get(ColorSensor.class, "color");
     }
+
+    private DistanceSensor getDistanceSensor(String name) {
+        return hardwareMap.get(DistanceSensor.class, name);
+    }
+
+    public DistanceSensor getFrontDistanceSensor() { return getDistanceSensor("front_distance"); }
+    public DistanceSensor getRightDistanceSensor() { return getDistanceSensor("right_distance"); }
+    public DistanceSensor getArmDistanceSensor() { return getDistanceSensor("arm_distance"); }
+    public DistanceSensor getColorDistanceSensor() { return getDistanceSensor("color"); }
 }
