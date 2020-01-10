@@ -1,7 +1,11 @@
 package org.firstinspires.ftc.teamcode.util
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
+import com.qualcomm.robotcore.hardware.DistanceSensor
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit
+import org.firstinspires.ftc.teamcode.movement.Arm
 import org.firstinspires.ftc.teamcode.movement.MecanumDrive
+import org.firstinspires.ftc.teamcode.sensors.StandardSensors
 import kotlin.math.abs
 
 /**
@@ -15,7 +19,10 @@ open class AutoBaseOpMode(
      * The robot's mecanum drive.
      * @see MecanumDrive
      */
-    val drive: MecanumDrive by lazy { MecanumDrive.standard(hardwareMap) }
+    val drive by lazy { MecanumDrive.standard(hardwareMap) }
+    val arm by lazy { Arm.standard(hardwareMap) }
+    val standardSensors by lazy { StandardSensors(hardwareMap) }
+    val armDistance by lazy { standardSensors.armDistanceSensor }
 
     /**
      * Contains code to run during the op mode. Override this method to implement your own subclass of AutoBaseOpMode.
@@ -24,6 +31,8 @@ open class AutoBaseOpMode(
      */
     override fun runOpMode() {
         drive
+        arm
+        armDistance
     }
 }
 
@@ -50,4 +59,20 @@ fun AutoBaseOpMode.drive(x: Double, y: Double, inches: Double) {
  */
 fun AutoBaseOpMode.drive(x: Int, y: Int, inches: Int) {
     drive(x.toDouble(), y.toDouble(), inches.toDouble())
+}
+
+fun AutoBaseOpMode.raiseArm() {
+    arm.setVerticalPower(0.8)
+    while (armDistance.getDistance(DistanceUnit.INCH) < 6.5) {
+        idle()
+    }
+    arm.stop()
+}
+
+fun AutoBaseOpMode.lowerArm() {
+    arm.setVerticalPower(-1.0)
+    while (armDistance.getDistance(DistanceUnit.INCH) >= 3 && opModeIsActive()) {
+        idle()
+    }
+    arm.stop()
 }

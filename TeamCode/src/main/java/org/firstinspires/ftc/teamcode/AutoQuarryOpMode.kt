@@ -13,20 +13,18 @@ import org.firstinspires.ftc.teamcode.sensors.Gyro
 import org.firstinspires.ftc.teamcode.sensors.StandardSensors
 import org.firstinspires.ftc.teamcode.util.AutoBaseOpMode
 import org.firstinspires.ftc.teamcode.util.drive
+import org.firstinspires.ftc.teamcode.util.raiseArm
 import org.firstinspires.ftc.teamcode.util.set
 import kotlin.math.abs
 
 open class AutoQuarryOpMode(
         private val colorModifier: Double
 ): AutoBaseOpMode(MILLISECONDS_PER_INCH) {
-    private val standardSensors by lazy { StandardSensors(hardwareMap) }
-    private val arm: Arm by lazy { Arm.standard(hardwareMap) }
     private val grabber: Grabber by lazy { Grabber.standard(hardwareMap) }
     private val colorSensor: ColorSensor by lazy { standardSensors.colorSensor }
     private val gyro: Gyro by lazy { BNO055IMUGyro.standard(hardwareMap) }
     private val frontDistance: DistanceSensor by lazy { standardSensors.frontDistanceSensor }
     private val rightDistance: DistanceSensor by lazy { standardSensors.rightDistanceSensor }
-    private val armDistance: DistanceSensor by lazy { standardSensors.armDistanceSensor }
 
     private var skystonePos = 0 // 0 is stone at center
 
@@ -43,7 +41,6 @@ open class AutoQuarryOpMode(
         colorSensor
         frontDistance
         rightDistance
-        armDistance
 
         telemetry["Status"] = "Initialized"
         telemetry.update()
@@ -116,11 +113,7 @@ open class AutoQuarryOpMode(
         grabber.grab()
         sleep(grabberTime)
 
-        arm.setVerticalPower(0.8)
-        while (armDistance.getDistance(DistanceUnit.INCH) < 6.5) {
-            idle()
-        }
-        arm.stop()
+        raiseArm()
 
         // Push back
         drive(0.0, -0.5, 4.5 * 2)

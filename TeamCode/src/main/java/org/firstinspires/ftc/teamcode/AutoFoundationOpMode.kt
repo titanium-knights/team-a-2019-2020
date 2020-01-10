@@ -1,27 +1,21 @@
 package org.firstinspires.ftc.teamcode
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
-import org.firstinspires.ftc.teamcode.movement.Arm
 import org.firstinspires.ftc.teamcode.movement.FoundationClamps
 import org.firstinspires.ftc.teamcode.util.AutoBaseOpMode
 import org.firstinspires.ftc.teamcode.util.drive
+import org.firstinspires.ftc.teamcode.util.raiseArm
 
 class AutoFoundationOpMode(private val colorModifier: Double): AutoBaseOpMode(MILLISECONDS_PER_INCH) {
     override fun runOpMode() {
         super.runOpMode()
 
-        val arm = Arm.standard(hardwareMap)
         val clamps = FoundationClamps.standard(hardwareMap)
 
         waitForStart()
 
-        // Move clamps up
-        // (clamps.move)(1.0, 500L)
-
-        // Move arm up
-        arm.setVerticalPower(1.0)
-        sleep(1000L)
-        arm.stop()
+        clamps.moveUp()
+        raiseArm()
 
         // Move forward one tile
         drive(0, 1, 24)
