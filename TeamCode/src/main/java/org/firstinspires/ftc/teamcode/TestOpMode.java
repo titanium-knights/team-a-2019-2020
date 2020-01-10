@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.movement.Arm;
-import org.firstinspires.ftc.teamcode.movement.BuildSiteClamps;
+import org.firstinspires.ftc.teamcode.movement.FoundationClamps;
 import org.firstinspires.ftc.teamcode.movement.Grabber;
 import org.firstinspires.ftc.teamcode.movement.MecanumDrive;
 import org.firstinspires.ftc.teamcode.util.Button;
@@ -13,7 +13,7 @@ public class TestOpMode extends OpMode {
     private MecanumDrive drive;
     private Arm arm;
     private Grabber grabber;
-    private BuildSiteClamps clamps;
+    private FoundationClamps clamps;
 
     private Button liftButton;
     private Button grabButton;
@@ -32,7 +32,7 @@ public class TestOpMode extends OpMode {
         drive = MecanumDrive.standard(hardwareMap);
         arm = Arm.standard(hardwareMap);
         grabber = Grabber.standard(hardwareMap);
-        clamps = BuildSiteClamps.standard(hardwareMap);
+        clamps = FoundationClamps.standard(hardwareMap);
 
         liftButton = Button.make(gamepad2, "y");
         grabButton = Button.make(gamepad2, "a");

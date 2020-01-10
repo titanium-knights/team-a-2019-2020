@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo
  * This class uses an arbitrary number of [Servo]s to grip the foundation; each one can move to different positions.
  * Together, these servos extend and hook beams onto the ridges of the foundation.
  */
-class BuildSiteClamps(
+class FoundationClamps(
         /**
          * List of clamps, each representing a servo.
          */
@@ -29,7 +29,7 @@ class BuildSiteClamps(
          * @param hardwareMap hardware map of the robot.
          * @return a BuildSiteClamps object preconfigured for our robot.
          */
-        @JvmStatic fun standard(hardwareMap: HardwareMap): BuildSiteClamps = BuildSiteClamps(listOf(
+        @JvmStatic fun standard(hardwareMap: HardwareMap): FoundationClamps = FoundationClamps(listOf(
                 Clamp(hardwareMap[Servo::class.java, "clamp1"], 0.0, 1.0),
                 Clamp(hardwareMap[Servo::class.java, "clamp2"], 0.0, 1.0)
         ))
