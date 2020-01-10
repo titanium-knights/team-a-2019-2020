@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.sensors;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 /**
  * <p>Helper class preconfigured for easy retrieval of our robot's sensors.</p>
@@ -17,6 +18,18 @@ public class StandardSensors {
      */
     public StandardSensors(HardwareMap hardwareMap) {
         this.hardwareMap = hardwareMap;
+    }
+
+    public double getVoltage() {
+        double result = Double.MAX_VALUE;
+        for (VoltageSensor sensor: hardwareMap.voltageSensor) {
+            double voltage = sensor.getVoltage();
+            if (voltage <= 0) {
+                result = Math.min(result, voltage);
+            }
+        }
+
+        return result;
     }
 
     /**
