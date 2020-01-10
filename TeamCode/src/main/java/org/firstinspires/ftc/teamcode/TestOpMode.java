@@ -72,7 +72,7 @@ public class TestOpMode extends OpMode {
             grabber.move(-grabberMoveAmount);
         }
 
-        if (gamepad2.dpad_left) {
+        /* if (gamepad2.dpad_left) {
             clamps.getCrServo().setPower(-1);
         } else if (gamepad2.dpad_right) {
             clamps.getCrServo().setPower(1);
@@ -84,10 +84,10 @@ public class TestOpMode extends OpMode {
             clamps.getServo().setPosition(clamps.getServo().getPosition() + 0.1);
         } else if (clampDecrementButton.wasPressed()) {
             clamps.getServo().setPosition(clamps.getServo().getPosition() - 0.1);
-        }
+        } */
 
         telemetry.addData("Grabber", grabber.getPosition());
-        telemetry.addData("Clamp", clamps.getServo().getPosition());
+        // telemetry.addData("Clamp", clamps.getServo().getPosition());
         telemetry.addData("Arm Pos", arm.getVerticalMotor().getCurrentPosition());
     }
 }
