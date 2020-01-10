@@ -34,5 +34,4 @@ public class StandardSensors {
     public DistanceSensor getFrontDistanceSensor() { return getDistanceSensor("front_distance"); }
     public DistanceSensor getRightDistanceSensor() { return getDistanceSensor("right_distance"); }
     public DistanceSensor getArmDistanceSensor() { return getDistanceSensor("arm_distance"); }
-    public DistanceSensor getColorDistanceSensor() { return getDistanceSensor("color"); }
 }
