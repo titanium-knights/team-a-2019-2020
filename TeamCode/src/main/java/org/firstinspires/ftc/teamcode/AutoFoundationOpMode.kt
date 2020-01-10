@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import org.firstinspires.ftc.teamcode.movement.Arm
-import org.firstinspires.ftc.teamcode.movement.FoundationClamps
+import org.firstinspires.ftc.teamcode.movement.BuildSiteClamps
 import org.firstinspires.ftc.teamcode.util.AutoBaseOpMode
 import org.firstinspires.ftc.teamcode.util.drive
 
@@ -11,7 +11,7 @@ class AutoFoundationOpMode(private val colorModifier: Double): AutoBaseOpMode(MI
         super.runOpMode()
 
         val arm = Arm.standard(hardwareMap)
-        val clamps = FoundationClamps.standard(hardwareMap)
+        val clamps = BuildSiteClamps.standard(hardwareMap)
 
         waitForStart()
 
