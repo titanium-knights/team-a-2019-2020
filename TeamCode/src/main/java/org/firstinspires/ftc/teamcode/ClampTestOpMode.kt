@@ -10,19 +10,22 @@ import org.firstinspires.ftc.teamcode.util.set
 
 @TeleOp(name = "Clamp Test Op Mode", group = "Tests")
 class ClampTestOpMode: OpMode() {
-    val servos by lazy { FoundationClamps.standard(hardwareMap).servos }
+    val clamps by lazy { FoundationClamps.standard(hardwareMap) }
+    val servos by lazy { clamps.servos }
     var servoIndex = 0
     val servo get() = servos[servoIndex]
 
     val prevButton by lazy { makeButton(gamepad1, Gamepad::left_bumper)!! }
     val nextButton by lazy { makeButton(gamepad1, Gamepad::right_bumper)!! }
-    val incButton by lazy { makeButton(gamepad1, Gamepad::x)!! }
-    val decButton by lazy { makeButton(gamepad1, Gamepad::y)!! }
+    val incButton by lazy { makeButton(gamepad1, Gamepad::b)!! }
+    val decButton by lazy { makeButton(gamepad1, Gamepad::x)!! }
+    val upButton by lazy { makeButton(gamepad1, Gamepad::y)!! }
+    val downButton by lazy { makeButton(gamepad1, Gamepad::a)!! }
     var buttons: List<Button> = listOf()
 
     override fun init() {
         servos
-        buttons = listOf(prevButton, nextButton, incButton, decButton)
+        buttons = listOf(prevButton, nextButton, incButton, decButton, upButton, downButton)
     }
 
     override fun loop() {
@@ -42,6 +45,14 @@ class ClampTestOpMode: OpMode() {
 
         if (decButton.wasPressed()) {
             servo.position -= 0.1
+        }
+
+        if (upButton.wasPressed()) {
+            clamps.moveUp()
+        }
+
+        if (downButton.wasPressed()) {
+            clamps.moveDown()
         }
 
         telemetry["Positions"] = servos.map { it.position }.joinToString(", ")
