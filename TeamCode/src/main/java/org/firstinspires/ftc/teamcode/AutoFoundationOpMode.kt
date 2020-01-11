@@ -24,8 +24,8 @@ open class AutoFoundationOpMode(private val colorModifier: Double): AutoBaseOpMo
         clamps.moveUp()
         grabber.lift()
 
-        // Move left one tile
-        drive(-colorModifier, 0.0, 24.0)
+        // Move left 0.5 tile
+        drive(-colorModifier, 0.0, 12.0)
 
         // Move forward 1.25 tiles
         drive(0, 1, 33)
@@ -45,8 +45,8 @@ open class AutoFoundationOpMode(private val colorModifier: Double): AutoBaseOpMo
 
         drive(0.0, 0.5, 2.0)
 
-        // Move right 48 inches
-        drive(colorModifier, 0.0, 48.0)
+        // Move right 36 inches
+        drive(colorModifier, 0.0, 36.0)
 
         // Move right 30 inches
         drive(colorModifier, 0.0, 24.0)

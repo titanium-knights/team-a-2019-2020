@@ -73,15 +73,23 @@ open class AutoQuarryOpMode(
         drive.stop()
 
         // Move 1 inch away from the edge of the stone away from the center
-        drive.move(1.0, MecanumDrive.Motor.Vector2D(colorModifier * 0.5, 0.0), 0.0)
-        while (sideDistance.getDistance(DistanceUnit.INCH) > 24) {
-            idle()
+        if (colorModifier > 0) {
+            drive.move(1.0, MecanumDrive.Motor.Vector2D(colorModifier * 0.5, 0.0), 0.0)
+            while (sideDistance.getDistance(DistanceUnit.INCH) > 24) {
+                idle()
+            }
+            drive.move(1.0, MecanumDrive.Motor.Vector2D(colorModifier * 0.15, 0.0), 0.0)
+            while (sideDistance.getDistance(DistanceUnit.INCH) > 16) {
+                idle()
+            }
+            drive.stop()
+        } else {
+            drive.move(1.0, MecanumDrive.Motor.Vector2D(colorModifier * 0.15, 0.0), 0.0)
+            while (sideDistance.getDistance(DistanceUnit.INCH) > 28) {
+                idle()
+            }
+            drive.stop()
         }
-        drive.move(1.0, MecanumDrive.Motor.Vector2D(colorModifier * 0.15, 0.0), 0.0)
-        while (sideDistance.getDistance(DistanceUnit.INCH) > 16) {
-            idle()
-        }
-        drive.stop()
 
         // For each stone, see if it's the skystone, then move right and check the next one
         var minLuminosity = Double.MAX_VALUE
@@ -105,13 +113,14 @@ open class AutoQuarryOpMode(
             telemetry.update()
 
             if (pos > 0) {
-                drive(-colorModifier / 2, 0.0, 8.0 * 2 / 8 * 6.5)
+                drive(-colorModifier / 2, 0.0, 8.0 * 2 / 8 * 7.0)
                 turn(startingDir)
             }
         }
 
         // Grab stone and wait for grabber to finish
-        val inchesToMove = skystonePos * 8.0 - 4
+        val inchesToMove = skystonePos * 8.0 - (if (colorModifier > 0) 4.0 else -5.7)
+
         drive(colorModifier, 0.0, inchesToMove)
 
         drive(0.0, 0.5, 2.0 * 2)
@@ -121,7 +130,7 @@ open class AutoQuarryOpMode(
         raiseArm()
 
         // Push back
-        drive(0.0, -0.5, 3.0 * 2)
+        drive(0.0, -0.5, (if (colorModifier > 0) 6.0 else 8.25))
 
         telemetry["Starting Direction"] = startingDir
         telemetry["Current Angle"] = gyro.angle
