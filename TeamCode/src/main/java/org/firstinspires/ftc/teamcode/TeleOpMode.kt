@@ -33,6 +33,15 @@ import org.firstinspires.ftc.teamcode.util.rem
 
 @TeleOp(name = "Tele Op Mode (final)", group = "* Main")
 class TeleOpMode: OpMode() {
+    enum class ArmState { MANUAL, MOVE_DOWN, MOVE_UP, MOVE_TO_TOUCH_SENSOR }
+
+    private val ArmState.telemetryName get() = when (this) {
+        ArmState.MANUAL -> "Manual"
+        ArmState.MOVE_DOWN -> "Move Down"
+        ArmState.MOVE_UP -> "Move Up"
+        ArmState.MOVE_TO_TOUCH_SENSOR -> "Move to Front"
+    }
+
     private val drive by lazy { MecanumDrive.standard(hardwareMap) }
     private val arm by lazy { Arm.standard(hardwareMap) }
     private val clamps by lazy { FoundationClamps.standard(hardwareMap) }
@@ -48,21 +57,54 @@ class TeleOpMode: OpMode() {
     private val grabberDownButton by lazy { makeButton(gamepad2, Gamepad::left_bumper)!! }
     private val grabberUpButton by lazy { makeButton(gamepad2, Gamepad::right_bumper)!! }
     private val moveArmDownButton by lazy { makeButton(gamepad2, Gamepad::dpad_down)!! }
+    private val moveArmUpButton by lazy { makeButton(gamepad2, Gamepad::dpad_up)!! }
+    private val moveArmToTouchSensorButton by lazy { makeButton(gamepad2, Gamepad::dpad_right)!! }
 
-    private var armDownStartTime: Double? = null
+    private var armStartTime: Double = 0.0
+    private var armState = ArmState.MANUAL
 
     private val elapsedTime by lazy { ElapsedTime() }
+
+    private fun setArmState(armState: ArmState, time: Double) {
+        if (this.armState == armState) {
+            this.armState = ArmState.MANUAL
+        } else {
+            this.armState = armState
+            this.armStartTime = time
+        }
+    }
+
+    private fun shouldStopArm(time: Double): Boolean {
+        if (armState == ArmState.MANUAL) {
+            return false
+        }
+
+        if (time - armStartTime > 5) {
+            return true
+        }
+
+        return when (armState) {
+            ArmState.MOVE_DOWN -> armDistance.getDistance(DistanceUnit.INCH) < 4
+            ArmState.MOVE_UP -> armDistance.getDistance(DistanceUnit.INCH) > 6.5
+            ArmState.MOVE_TO_TOUCH_SENSOR -> armTouch.isPressed
+            else -> true
+        }
+    }
 
     override fun init() {
         // Since we're using lazy properties, get each of them to initialize them
         drive; arm; clamps; grabber; armDistance; armTouch; elapsedTime
-        buttons = listOf(clampDownButton, clampUpButton, grabberDownButton, grabberUpButton, moveArmDownButton)
+        buttons = listOf(
+                clampDownButton, clampUpButton, grabberDownButton, grabberUpButton,
+                moveArmDownButton, moveArmUpButton, moveArmToTouchSensorButton
+        )
     }
 
     override fun loop() {
         buttons.forEach { it.update() }
         val bypass = gamepad2.y
         val distance = armDistance.getDistance(DistanceUnit.INCH)
+        val now = elapsedTime.seconds()
 
         // Move mecanum drive
         val vector = MecanumDrive.Motor.Vector2D(
@@ -88,33 +130,42 @@ class TeleOpMode: OpMode() {
             grabber.lift()
         }
 
-        // Toggle whether arm is being moved down
-        val now = elapsedTime.seconds()
+        // Toggle whether arm is being moved
         if (moveArmDownButton.wasPressed()) {
-            armDownStartTime = if (armDownStartTime == null) now else null
+            setArmState(ArmState.MOVE_DOWN, now)
+        }
+        if (moveArmUpButton.wasPressed()) {
+            setArmState(ArmState.MOVE_UP, now)
+        }
+        if (moveArmToTouchSensorButton.wasPressed()) {
+            setArmState(ArmState.MOVE_TO_TOUCH_SENSOR, now)
         }
 
-        // If arm is <= 3 cm from ground, or if we've spent over 5 seconds moving the arm, stop moving the arm down
-        if (
-                armDownStartTime != null &&
-                (distance <= 3 || now - armDownStartTime!! > 5)
-        ) {
-            armDownStartTime = null
+        // Stop moving the arm if needed
+        if (shouldStopArm(now)) {
+            armState = ArmState.MANUAL
         }
 
         // Move arm
-        val horizontal = gamepad2.right_stick_x.toDouble()
-        val vertical = if (armDownStartTime != null) -1.0 else -gamepad2.left_stick_y.toDouble()
+        val horizontal = when (armState) {
+            ArmState.MOVE_TO_TOUCH_SENSOR -> 0.65
+            else -> gamepad2.right_stick_x.toDouble()
+        }
+        val vertical = when (armState) {
+            ArmState.MOVE_UP -> 0.8
+            ArmState.MOVE_DOWN -> -1.0
+            else -> -gamepad2.left_stick_y.toDouble()
+        }
         arm.setPowers(horizontal, vertical)
 
         telemetry += "=== DRIVE ==="
         telemetry += "X = %.2f, Y = %.2f, Turn = %.2f" % arrayOf(vector.x, vector.y, turn)
 
         telemetry += "=== ARM ==="
+        telemetry += "Mode: ${armState.telemetryName}"
+        telemetry += ""
         telemetry += "< Horizontal >: %.2f" % arrayOf(horizontal)
-        telemetry += if (armDownStartTime == null)
-            "^  Vertical  v: %.2f" % arrayOf(vertical)
-            else "Moving down... (%d/5s)" % arrayOf((now - armDownStartTime!!).toInt())
+        telemetry += "^  Vertical  v: %.2f" % arrayOf(vertical)
         telemetry += ""
         telemetry += if (armTouch.isPressed) "•   Arm" else "    Arm"
         telemetry += "     |     "
