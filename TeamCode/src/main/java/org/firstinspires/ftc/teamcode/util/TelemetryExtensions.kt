@@ -11,3 +11,11 @@ import org.firstinspires.ftc.robotcore.external.Telemetry
 operator fun Telemetry.set(name: String, value: Any) {
     addData(name, value)
 }
+
+operator fun Telemetry.plusAssign(line: String) {
+    addLine(line)
+}
+
+operator fun String.rem(args: Array<*>): String {
+    return String.format(this, *args)
+}

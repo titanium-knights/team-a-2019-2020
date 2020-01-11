@@ -12,6 +12,9 @@ import org.firstinspires.ftc.teamcode.movement.MecanumDrive
 import org.firstinspires.ftc.teamcode.sensors.StandardSensors
 import org.firstinspires.ftc.teamcode.util.Button
 import org.firstinspires.ftc.teamcode.util.makeButton
+import org.firstinspires.ftc.teamcode.util.plusAssign
+import org.firstinspires.ftc.teamcode.util.rem
+import kotlin.math.floor
 
 /*
  Gamepad 1:
@@ -60,6 +63,7 @@ class TeleOpMode: OpMode() {
     override fun loop() {
         buttons.forEach { it.update() }
         val bypass = gamepad2.y
+        val distance = armDistance.getDistance(DistanceUnit.INCH)
 
         // Move mecanum drive
         val vector = MecanumDrive.Motor.Vector2D(
@@ -86,14 +90,15 @@ class TeleOpMode: OpMode() {
         }
 
         // Toggle whether arm is being moved down
+        val now = elapsedTime.seconds()
         if (moveArmDownButton.wasPressed()) {
-            armDownStartTime = if (armDownStartTime == null) elapsedTime.seconds() else null
+            armDownStartTime = if (armDownStartTime == null) now else null
         }
 
         // If arm is <= 3 cm from ground, or if we've spent over 5 seconds moving the arm, stop moving the arm down
         if (
                 armDownStartTime != null &&
-                (armDistance.getDistance(DistanceUnit.INCH) <= 3 || elapsedTime.seconds() - armDownStartTime!! > 5)
+                (distance <= 3 || now - armDownStartTime!! > 5)
         ) {
             armDownStartTime = null
         }
@@ -102,5 +107,20 @@ class TeleOpMode: OpMode() {
         val horizontal = gamepad2.left_stick_x.toDouble()
         val vertical = if (armDownStartTime != null) -1.0 else -gamepad2.left_stick_y.toDouble()
         arm.setPowers(horizontal, vertical)
+
+        telemetry += "=== DRIVE ==="
+        telemetry += "X = %.2f, Y = %.2f, Turn = %.2f" % arrayOf(vector.x, vector.y, turn)
+
+        telemetry += "=== ARM ==="
+        telemetry += "< Horizontal >: %.2f" % arrayOf(horizontal)
+        telemetry += if (armDownStartTime == null)
+            "^  Vertical  v: %.2f" % arrayOf(vertical)
+            else "Moving down... (%d/5s)" % arrayOf((now - armDownStartTime!!).toInt())
+        telemetry += ""
+        telemetry += if (armTouch.isPressed) "•   Arm" else "    Arm"
+        telemetry += "     |     "
+        telemetry += "(%06.2f in)" % arrayOf(distance)
+        telemetry += "     |     "
+        telemetry += "   Floor   "
     }
 }
