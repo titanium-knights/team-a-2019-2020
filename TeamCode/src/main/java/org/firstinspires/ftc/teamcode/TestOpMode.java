@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.movement.Grabber;
 import org.firstinspires.ftc.teamcode.movement.MecanumDrive;
 import org.firstinspires.ftc.teamcode.util.Button;
 
-@TeleOp(name = "Test Op Mode (better)", group = "Tests")
+@TeleOp(name = "Test Op Mode", group = "Tests")
 public class TestOpMode extends OpMode {
     private MecanumDrive drive;
     private Arm arm;
