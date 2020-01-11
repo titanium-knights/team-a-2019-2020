@@ -70,7 +70,7 @@ class TeleOpMode: OpMode() {
                 -gamepad1.left_stick_y.toDouble()
         )
         val turn = gamepad1.right_stick_x.toDouble()
-        drive.move(1.0, vector, turn)
+        drive.move(1.0, vector, turn, MecanumDrive.TurnBehavior.ADDSUBTRACT)
 
         // Move clamps
         if (clampDownButton.wasPressed()) {
