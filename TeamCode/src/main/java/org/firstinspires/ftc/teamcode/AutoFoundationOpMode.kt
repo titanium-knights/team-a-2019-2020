@@ -4,7 +4,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import org.firstinspires.ftc.teamcode.movement.FoundationClamps
 import org.firstinspires.ftc.teamcode.util.AutoBaseOpMode
 import org.firstinspires.ftc.teamcode.util.drive
+import org.firstinspires.ftc.teamcode.util.lowerArm
 import org.firstinspires.ftc.teamcode.util.raiseArm
+
+const val CLAMP_TIME = 1000L
 
 class AutoFoundationOpMode(private val colorModifier: Double): AutoBaseOpMode(MILLISECONDS_PER_INCH) {
     override fun runOpMode() {
@@ -17,34 +20,30 @@ class AutoFoundationOpMode(private val colorModifier: Double): AutoBaseOpMode(MI
         clamps.moveUp()
         raiseArm()
 
-        // Move forward one tile
-        drive(0, 1, 24)
-
-        // Move right one tile
+        // Move left one tile
         drive(-colorModifier, 0.0, 24.0)
 
-        // Move forward 26 inches
-        drive(0, 1, 26)
+        // Move forward 1.25 tiles
+        drive(0, 1, 30)
 
         // Move clamps down
-        // (clamps.move)(-1.0, 500L)
+        clamps.moveDown()
+        sleep(CLAMP_TIME)
 
-        // Move backwards 50 inches
-        drive(0, -1, 50)
+        // Move backwards 1.5 tiles
+        drive(0, -1, 36)
 
-        // Move left 36 inches
+        // Move clamps up
+        clamps.moveUp()
+
+        // Move right 36 inches
         drive(colorModifier, 1.0, 36.0)
 
-        // Move forward 1 inch
-        drive(0, 1, 1)
+        // Lower arm
+        lowerArm()
 
-        // Move arm down
-        arm.setVerticalPower(-1.0)
-        sleep(1000L)
-        arm.stop()
-
-        // Move left 36 inches
-        drive(colorModifier, 1.0, 36.0)
+        // Move right 24 inches
+        drive(colorModifier, 1.0, 24.0)
     }
 }
 
