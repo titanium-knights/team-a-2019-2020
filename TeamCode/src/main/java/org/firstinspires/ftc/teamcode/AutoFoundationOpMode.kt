@@ -17,6 +17,7 @@ class AutoFoundationOpMode(private val colorModifier: Double): AutoBaseOpMode(MI
 
         waitForStart()
 
+        // Move clamps up and raise arm
         clamps.moveUp()
         raiseArm()
 
