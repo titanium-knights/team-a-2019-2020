@@ -14,7 +14,6 @@ import org.firstinspires.ftc.teamcode.util.Button
 import org.firstinspires.ftc.teamcode.util.makeButton
 import org.firstinspires.ftc.teamcode.util.plusAssign
 import org.firstinspires.ftc.teamcode.util.rem
-import kotlin.math.floor
 
 /*
  Gamepad 1:
@@ -67,8 +66,8 @@ class TeleOpMode: OpMode() {
 
         // Move mecanum drive
         val vector = MecanumDrive.Motor.Vector2D(
-                -gamepad1.left_stick_y.toDouble(),
-                gamepad1.left_stick_x.toDouble()
+                gamepad1.left_stick_x.toDouble(),
+                -gamepad1.left_stick_y.toDouble()
         )
         val turn = gamepad1.right_stick_x.toDouble()
         drive.move(1.0, vector, turn)
@@ -105,7 +104,7 @@ class TeleOpMode: OpMode() {
 
         // Move arm
         val horizontal = gamepad2.left_stick_x.toDouble()
-        val vertical = if (armDownStartTime != null) -1.0 else -gamepad2.left_stick_y.toDouble()
+        val vertical = if (armDownStartTime != null) -1.0 else -gamepad2.right_stick_y.toDouble()
         arm.setPowers(horizontal, vertical)
 
         telemetry += "=== DRIVE ==="
