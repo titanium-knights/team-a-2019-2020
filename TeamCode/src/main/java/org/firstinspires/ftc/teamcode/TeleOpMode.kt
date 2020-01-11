@@ -86,7 +86,7 @@ class TeleOpMode: OpMode() {
         return when (armState) {
             ArmState.MOVE_DOWN -> armDistance.getDistance(DistanceUnit.INCH) < 4
             ArmState.MOVE_UP -> armDistance.getDistance(DistanceUnit.INCH) > 6.5
-            ArmState.MOVE_TO_TOUCH_SENSOR -> armTouch.isPressed
+            ArmState.MOVE_TO_TOUCH_SENSOR -> armTouch.isPressed || gamepad2.right_stick_x != 0.0F
             else -> true
         }
     }

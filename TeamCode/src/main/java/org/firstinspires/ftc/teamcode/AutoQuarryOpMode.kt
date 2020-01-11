@@ -6,15 +6,13 @@ import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DistanceSensor
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit
 import org.firstinspires.ftc.teamcode.movement.Arm
+import org.firstinspires.ftc.teamcode.movement.FoundationClamps
 import org.firstinspires.ftc.teamcode.movement.Grabber
 import org.firstinspires.ftc.teamcode.movement.MecanumDrive
 import org.firstinspires.ftc.teamcode.sensors.BNO055IMUGyro
 import org.firstinspires.ftc.teamcode.sensors.Gyro
 import org.firstinspires.ftc.teamcode.sensors.StandardSensors
-import org.firstinspires.ftc.teamcode.util.AutoBaseOpMode
-import org.firstinspires.ftc.teamcode.util.drive
-import org.firstinspires.ftc.teamcode.util.raiseArm
-import org.firstinspires.ftc.teamcode.util.set
+import org.firstinspires.ftc.teamcode.util.*
 import kotlin.math.abs
 
 open class AutoQuarryOpMode(
@@ -22,8 +20,8 @@ open class AutoQuarryOpMode(
 ): AutoBaseOpMode(MILLISECONDS_PER_INCH) {
     private val grabber: Grabber by lazy { Grabber.standard(hardwareMap) }
     private val colorSensor: ColorSensor by lazy { standardSensors.colorSensor }
-    private val gyro: Gyro by lazy { BNO055IMUGyro.standard(hardwareMap) }
     private val frontDistance: DistanceSensor by lazy { standardSensors.frontDistanceSensor }
+    private val clamps: FoundationClamps by lazy { FoundationClamps.standard(hardwareMap) }
     private val rightDistance: DistanceSensor by lazy { standardSensors.rightDistanceSensor }
 
     private var skystonePos = 0 // 0 is stone at center
@@ -31,12 +29,11 @@ open class AutoQuarryOpMode(
     private val grabberTime = 1000L
 
     override fun runOpMode() {
+        super.runOpMode()
+
         if (colorSensor.argb() == 0) {
             telemetry["Warning"] = "Color sensor is returning 0. It is likely not working properly."
         }
-
-        gyro.initialize()
-        gyro.calibrate()
 
         colorSensor
         frontDistance
@@ -53,6 +50,7 @@ open class AutoQuarryOpMode(
 
         // Lift grabber and disable color sensor LED
         grabber.lift()
+        clamps.moveDown()
         colorSensor.enableLed(false)
 
         // Move towards the third stone from center
@@ -83,7 +81,7 @@ open class AutoQuarryOpMode(
         var minLuminosity = Double.MAX_VALUE
         var lumLog = ""
         for (pos in 2 downTo 0) {
-            sleep(500L)
+            sleep(300L)
 
             val luminosity = colorSensor.red().toDouble() / colorSensor.green()
             if (luminosity < minLuminosity) {
@@ -102,6 +100,7 @@ open class AutoQuarryOpMode(
 
             if (pos > 0) {
                 drive(-colorModifier / 2, 0.0, 8.0 * 2 / 8 * 6.5)
+                turn(startingDir)
             }
         }
 
@@ -116,7 +115,7 @@ open class AutoQuarryOpMode(
         raiseArm()
 
         // Push back
-        drive(0.0, -0.5, 4.5 * 2)
+        drive(0.0, -0.5, 3.0 * 2)
 
         telemetry["Starting Direction"] = startingDir
         telemetry["Current Angle"] = gyro.angle
@@ -126,17 +125,10 @@ open class AutoQuarryOpMode(
         telemetry.update()
 
         // Correct for any drift
-        val postGrabDir = gyro.angle
-        if (abs(postGrabDir - startingDir) > 2) {
-            drive.steerWithPower(0.2, 1.0)
-            while (abs(startingDir - gyro.angle) > 2) {
-                idle()
-            }
-            drive.stop()
-        }
+        turn(startingDir)
 
         // Cross skybridge
-        drive(-colorModifier, 0.0, skystonePos * 8.0 + 48.0)
+        drive(-colorModifier, 0.0, skystonePos * 8.0 + 54.0)
 
         // Release stone
         arm.setVerticalPower(1.0)
@@ -149,23 +141,46 @@ open class AutoQuarryOpMode(
         sleep(500L)
         arm.stop()
 
-        // Park
-        drive(colorModifier, 0.0, 8.0)
+        turn(startingDir)
 
-        arm.setVerticalPower(-1.0)
-        sleep(750L)
+        // Park
+        drive(colorModifier, 0.0, 14.0)
+
+        /* arm.setHorizontalPower(1.0)
+        sleep(200L)
         arm.stop()
 
-        while (opModeIsActive()) {
-            telemetry["Starting Direction"] = startingDir
-            telemetry["Current Angle"] = gyro.angle
-            telemetry["Skystone Position"] = skystonePos
-            telemetry["Luminosity"] = lumLog
-            telemetry["Luminosity (min)"] = minLuminosity
-            telemetry.update()
+        lowerArm()
+        turn(startingDir)
 
+        if (skystonePos == 2) {
+            skystonePos = 0
+        }
+        val target = (2 - skystonePos) * 8.0 - 5.0
+        drive.move(0.8, MecanumDrive.Motor.Vector2D(colorModifier, 0.0), 0.0)
+        while (abs(target - rightDistance.getDistance(DistanceUnit.INCH)) > 15) {
             idle()
         }
+        drive.move(0.2, MecanumDrive.Motor.Vector2D(colorModifier, 0.0), 0.0)
+        while (abs(target - rightDistance.getDistance(DistanceUnit.INCH)) > 3) {
+            idle()
+        }
+        drive.stop()
+
+        drive.forwardWithPower(0.15)
+        while (frontDistance.getDistance(DistanceUnit.INCH) > 4) {
+            idle()
+        }
+        drive(0.0, 0.5, 2.0 * 2)
+        grabber.grab()
+        sleep(grabberTime)
+        raiseArm()
+        drive(0.0, -0.5, 3.0 * 2)
+        turn(startingDir - 90 * colorModifier)
+        drive(0.0, 1.0, 75.0 - target)
+        grabber.lift()
+        drive(0.0, -1.0, 9.0) */
+
     }
 }
 

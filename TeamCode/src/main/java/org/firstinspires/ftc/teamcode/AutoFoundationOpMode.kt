@@ -2,54 +2,59 @@ package org.firstinspires.ftc.teamcode
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import org.firstinspires.ftc.teamcode.movement.FoundationClamps
-import org.firstinspires.ftc.teamcode.util.AutoBaseOpMode
-import org.firstinspires.ftc.teamcode.util.drive
-import org.firstinspires.ftc.teamcode.util.lowerArm
-import org.firstinspires.ftc.teamcode.util.raiseArm
+import org.firstinspires.ftc.teamcode.movement.Grabber
+import org.firstinspires.ftc.teamcode.util.*
+import kotlin.math.abs
+import kotlin.math.sign
 
 const val CLAMP_TIME = 1000L
 
-class AutoFoundationOpMode(private val colorModifier: Double): AutoBaseOpMode(MILLISECONDS_PER_INCH) {
+open class AutoFoundationOpMode(private val colorModifier: Double): AutoBaseOpMode(MILLISECONDS_PER_INCH) {
     override fun runOpMode() {
         super.runOpMode()
 
         val clamps = FoundationClamps.standard(hardwareMap)
+        val grabber = Grabber.standard(hardwareMap)
 
         waitForStart()
 
-        // Move clamps up and raise arm
+        val startingDir = gyro.angle
+
+        // Move clamps up
         clamps.moveUp()
-        raiseArm()
+        grabber.lift()
 
         // Move left one tile
         drive(-colorModifier, 0.0, 24.0)
 
         // Move forward 1.25 tiles
-        drive(0, 1, 30)
+        drive(0, 1, 33)
 
         // Move clamps down
         clamps.moveDown()
         sleep(CLAMP_TIME)
 
         // Move backwards 1.5 tiles
-        drive(0, -1, 36)
+        drive(0, -1, 37)
 
         // Move clamps up
         clamps.moveUp()
+        sleep(CLAMP_TIME)
 
-        // Move right 36 inches
-        drive(colorModifier, 1.0, 36.0)
+        turn(startingDir)
 
-        // Lower arm
-        lowerArm()
+        drive(0.0, 0.5, 2.0)
 
-        // Move right 24 inches
-        drive(colorModifier, 1.0, 24.0)
+        // Move right 48 inches
+        drive(colorModifier, 0.0, 48.0)
+
+        // Move right 30 inches
+        drive(colorModifier, 0.0, 24.0)
     }
 }
 
 @Autonomous(name = "Foundation - Red", group = "Foundation")
-class AutoFoundationRedOpMode: AutoQuarryOpMode(1.0)
+class AutoFoundationRedOpMode: AutoFoundationOpMode(1.0)
 
 @Autonomous(name = "Foundation - Blue", group = "Foundation")
-class AutoFoundationBlueOpMode: AutoQuarryOpMode(-1.0)
+class AutoFoundationBlueOpMode: AutoFoundationOpMode(-1.0)

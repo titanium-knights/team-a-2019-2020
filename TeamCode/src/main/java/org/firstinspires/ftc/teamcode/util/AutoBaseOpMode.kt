@@ -5,8 +5,11 @@ import com.qualcomm.robotcore.hardware.DistanceSensor
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit
 import org.firstinspires.ftc.teamcode.movement.Arm
 import org.firstinspires.ftc.teamcode.movement.MecanumDrive
+import org.firstinspires.ftc.teamcode.sensors.BNO055IMUGyro
+import org.firstinspires.ftc.teamcode.sensors.Gyro
 import org.firstinspires.ftc.teamcode.sensors.StandardSensors
 import kotlin.math.abs
+import kotlin.math.sign
 
 /**
  * Boilerplate linear op mode for autonomous programs.
@@ -23,6 +26,7 @@ open class AutoBaseOpMode(
     val arm by lazy { Arm.standard(hardwareMap) }
     val standardSensors by lazy { StandardSensors(hardwareMap) }
     val armDistance by lazy { standardSensors.armDistanceSensor }
+    val gyro: Gyro by lazy { BNO055IMUGyro.standard(hardwareMap) }
 
     /**
      * Contains code to run during the op mode. Override this method to implement your own subclass of AutoBaseOpMode.
@@ -33,6 +37,8 @@ open class AutoBaseOpMode(
         drive
         arm
         armDistance
+        gyro.initialize()
+        gyro.calibrate()
     }
 }
 
@@ -71,8 +77,18 @@ fun AutoBaseOpMode.raiseArm() {
 
 fun AutoBaseOpMode.lowerArm() {
     arm.setVerticalPower(-1.0)
-    while (armDistance.getDistance(DistanceUnit.INCH) >= 3 && opModeIsActive()) {
+    while (armDistance.getDistance(DistanceUnit.INCH) > 4 && opModeIsActive()) {
         idle()
     }
     arm.stop()
+}
+
+fun AutoBaseOpMode.turn(target: Double) {
+    if (abs(gyro.angle - target) > 2) {
+        drive.steerWithPower(0.2, sign(target - gyro.angle))
+        while (abs(target - gyro.angle) > 2) {
+            idle()
+        }
+        drive.stop()
+    }
 }
