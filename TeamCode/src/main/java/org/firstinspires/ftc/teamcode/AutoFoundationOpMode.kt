@@ -54,7 +54,7 @@ open class AutoFoundationOpMode(private val colorModifier: Double): AutoBaseOpMo
 }
 
 @Autonomous(name = "Foundation - Red", group = "Foundation")
-class AutoFoundationRedOpMode: AutoFoundationOpMode(1.0)
+class AutoFoundationRedOpMode: AutoFoundationOpMode(-1.0)
 
 @Autonomous(name = "Foundation - Blue", group = "Foundation")
-class AutoFoundationBlueOpMode: AutoFoundationOpMode(-1.0)
+class AutoFoundationBlueOpMode: AutoFoundationOpMode(1.0)

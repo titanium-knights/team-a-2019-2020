@@ -16,13 +16,19 @@ import org.firstinspires.ftc.teamcode.util.*
 import kotlin.math.abs
 
 open class AutoQuarryOpMode(
-        private val colorModifier: Double
+        private val colorModifier: Double,
+        private val distanceSide: DistanceSide
 ): AutoBaseOpMode(MILLISECONDS_PER_INCH) {
+    enum class DistanceSide { LEFT, RIGHT }
+
     private val grabber: Grabber by lazy { Grabber.standard(hardwareMap) }
     private val colorSensor: ColorSensor by lazy { standardSensors.colorSensor }
     private val frontDistance: DistanceSensor by lazy { standardSensors.frontDistanceSensor }
     private val clamps: FoundationClamps by lazy { FoundationClamps.standard(hardwareMap) }
-    private val rightDistance: DistanceSensor by lazy { standardSensors.rightDistanceSensor }
+    private val sideDistance: DistanceSensor by lazy { when (distanceSide) {
+        DistanceSide.LEFT -> standardSensors.leftDistanceSensor
+        DistanceSide.RIGHT -> standardSensors.rightDistanceSensor
+    } }
 
     private var skystonePos = 0 // 0 is stone at center
 
@@ -37,7 +43,7 @@ open class AutoQuarryOpMode(
 
         colorSensor
         frontDistance
-        rightDistance
+        sideDistance
 
         telemetry["Status"] = "Initialized"
         telemetry.update()
@@ -68,11 +74,11 @@ open class AutoQuarryOpMode(
 
         // Move 1 inch away from the edge of the stone away from the center
         drive.move(1.0, MecanumDrive.Motor.Vector2D(colorModifier * 0.5, 0.0), 0.0)
-        while (rightDistance.getDistance(DistanceUnit.INCH) > 24) {
+        while (sideDistance.getDistance(DistanceUnit.INCH) > 24) {
             idle()
         }
         drive.move(1.0, MecanumDrive.Motor.Vector2D(colorModifier * 0.15, 0.0), 0.0)
-        while (rightDistance.getDistance(DistanceUnit.INCH) > 16) {
+        while (sideDistance.getDistance(DistanceUnit.INCH) > 16) {
             idle()
         }
         drive.stop()
@@ -185,7 +191,7 @@ open class AutoQuarryOpMode(
 }
 
 @Autonomous(name = "Quarry - Red", group = "Quarry")
-class AutoQuarryRedOpMode: AutoQuarryOpMode(1.0)
+class AutoQuarryRedOpMode: AutoQuarryOpMode(-1.0, DistanceSide.LEFT)
 
 @Autonomous(name = "Quarry - Blue", group = "Quarry")
-class AutoQuarryBlueOpMode: AutoQuarryOpMode(-1.0)
+class AutoQuarryBlueOpMode: AutoQuarryOpMode(1.0, DistanceSide.RIGHT)

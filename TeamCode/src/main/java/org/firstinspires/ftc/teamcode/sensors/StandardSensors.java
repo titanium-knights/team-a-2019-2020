@@ -46,6 +46,7 @@ public class StandardSensors {
     }
 
     public DistanceSensor getFrontDistanceSensor() { return getDistanceSensor("front_distance"); }
+    public DistanceSensor getLeftDistanceSensor() { return getDistanceSensor("left_distance"); }
     public DistanceSensor getRightDistanceSensor() { return getDistanceSensor("right_distance"); }
     public DistanceSensor getArmDistanceSensor() { return getDistanceSensor("arm_distance"); }
 
