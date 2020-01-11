@@ -190,8 +190,8 @@ open class AutoQuarryOpMode(
     }
 }
 
-@Autonomous(name = "Quarry - Red", group = "Quarry")
+@Autonomous(name = "Route 1 - Red", group = "Quarry")
 class AutoQuarryRedOpMode: AutoQuarryOpMode(-1.0, DistanceSide.LEFT)
 
-@Autonomous(name = "Quarry - Blue", group = "Quarry")
+@Autonomous(name = "Route 1 - Blue", group = "Quarry")
 class AutoQuarryBlueOpMode: AutoQuarryOpMode(1.0, DistanceSide.RIGHT)
