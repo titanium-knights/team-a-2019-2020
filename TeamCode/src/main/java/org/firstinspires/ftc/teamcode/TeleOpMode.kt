@@ -103,8 +103,8 @@ class TeleOpMode: OpMode() {
         }
 
         // Move arm
-        val horizontal = gamepad2.left_stick_x.toDouble()
-        val vertical = if (armDownStartTime != null) -1.0 else -gamepad2.right_stick_y.toDouble()
+        val horizontal = gamepad2.right_stick_x.toDouble()
+        val vertical = if (armDownStartTime != null) -1.0 else -gamepad2.left_stick_y.toDouble()
         arm.setPowers(horizontal, vertical)
 
         telemetry += "=== DRIVE ==="
