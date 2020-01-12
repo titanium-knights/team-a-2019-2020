@@ -113,13 +113,13 @@ open class AutoQuarryOpMode(
             telemetry.update()
 
             if (pos > 0) {
-                drive(-colorModifier / 2, 0.0, 8.0 * 2 / 8 * 7.0)
+                drive(-colorModifier / 2, 0.0, 8.0 * 2 / 8 * 6.5)
                 turn(startingDir)
             }
         }
 
         // Grab stone and wait for grabber to finish
-        val inchesToMove = skystonePos * 8.0 - (if (colorModifier > 0) 4.0 else -5.7)
+        val inchesToMove = skystonePos * 8.0 - (if (colorModifier > 0) 4.0 else -5.85)
 
         drive(colorModifier, 0.0, inchesToMove)
 
