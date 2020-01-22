@@ -9,9 +9,7 @@ import org.firstinspires.ftc.teamcode.movement.Arm
 import org.firstinspires.ftc.teamcode.movement.FoundationClamps
 import org.firstinspires.ftc.teamcode.movement.Grabber
 import org.firstinspires.ftc.teamcode.movement.MecanumDrive
-import org.firstinspires.ftc.teamcode.sensors.BNO055IMUGyro
-import org.firstinspires.ftc.teamcode.sensors.Gyro
-import org.firstinspires.ftc.teamcode.sensors.StandardSensors
+import org.firstinspires.ftc.teamcode.sensors.*
 import org.firstinspires.ftc.teamcode.util.*
 import kotlin.math.abs
 
@@ -29,6 +27,7 @@ open class AutoQuarryOpMode(
         DistanceSide.LEFT -> standardSensors.leftDistanceSensor
         DistanceSide.RIGHT -> standardSensors.rightDistanceSensor
     } }
+    private val detector by lazy { SkystoneDetector(StandardVuforia.getLocalizer(hardwareMap)) }
 
     private var skystonePos = 0 // 0 is stone at center
 
@@ -45,6 +44,8 @@ open class AutoQuarryOpMode(
         frontDistance
         sideDistance
 
+        detector.init()
+
         telemetry["Status"] = "Initialized"
         telemetry.update()
 
@@ -60,10 +61,11 @@ open class AutoQuarryOpMode(
         colorSensor.enableLed(false)
 
         // Move towards the third stone from center
-        drive(Vector2D(0.0, 1.0), startingDir, frontDistance, 10.0)
+        drive(Vector2D(0.0, 1.0), startingDir, frontDistance, 12.0)
 
         while (opModeIsActive()) {
-
+            telemetry["Skystone Pos?"] = detector.getSkystonePosition()
+            telemetry.update()
         }
 
         return
