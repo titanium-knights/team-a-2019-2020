@@ -123,4 +123,6 @@ fun AutoBaseOpMode.drive(vector: Vector2D, targetAngle: Double, sensor: Distance
         drive.move(power, vector, turn, MecanumDrive.TurnBehavior.ADDSUBTRACT)
         sleep(10L)
     } while ((prevDistance + distance) / 2 - inches >= 3 && opModeIsActive())
+
+    drive.stop()
 }
