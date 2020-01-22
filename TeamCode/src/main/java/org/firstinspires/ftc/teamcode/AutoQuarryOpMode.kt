@@ -60,36 +60,16 @@ open class AutoQuarryOpMode(
         colorSensor.enableLed(false)
 
         // Move towards the third stone from center
-        val voltage = hardwareMap.voltageSensor.map { it.voltage }.minBy { if (it < 0) Double.MAX_VALUE else it } ?: Double.MAX_VALUE
-        val maxPower = if (voltage < 13.5) 1.0 else 0.85
-        drive.forwardWithPower(0.7)
-        while (frontDistance.getDistance(DistanceUnit.INCH) > 15) {
-            idle()
-        }
-        drive.forwardWithPower(0.15)
-        while (frontDistance.getDistance(DistanceUnit.INCH) > 4) {
-            idle()
-        }
-        drive.stop()
+        drive(Vector2D(0.0, 1.0), startingDir, frontDistance, 4.0)
 
         // Move 1 inch away from the edge of the stone away from the center
         if (colorModifier > 0) {
-            drive.move(1.0, MecanumDrive.Motor.Vector2D(colorModifier * 0.5, 0.0), 0.0)
-            while (sideDistance.getDistance(DistanceUnit.INCH) > 24) {
-                idle()
-            }
-            drive.move(1.0, MecanumDrive.Motor.Vector2D(colorModifier * 0.15, 0.0), 0.0)
-            while (sideDistance.getDistance(DistanceUnit.INCH) > 16) {
-                idle()
-            }
-            drive.stop()
+            drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, 16.0)
         } else {
-            drive.move(1.0, MecanumDrive.Motor.Vector2D(colorModifier * 0.15, 0.0), 0.0)
-            while (sideDistance.getDistance(DistanceUnit.INCH) > 28) {
-                idle()
-            }
-            drive.stop()
+            drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, 28.0)
         }
+
+        return
 
         // For each stone, see if it's the skystone, then move right and check the next one
         var minLuminosity = Double.MAX_VALUE
