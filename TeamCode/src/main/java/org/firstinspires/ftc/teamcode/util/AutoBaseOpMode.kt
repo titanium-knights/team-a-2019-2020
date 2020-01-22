@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.util
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.hardware.DistanceSensor
+import com.qualcomm.robotcore.util.ElapsedTime
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit
 import org.firstinspires.ftc.teamcode.movement.Arm
 import org.firstinspires.ftc.teamcode.movement.MecanumDrive
@@ -9,6 +10,8 @@ import org.firstinspires.ftc.teamcode.sensors.BNO055IMUGyro
 import org.firstinspires.ftc.teamcode.sensors.Gyro
 import org.firstinspires.ftc.teamcode.sensors.StandardSensors
 import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.sign
 
 /**
@@ -27,6 +30,8 @@ open class AutoBaseOpMode(
     val standardSensors by lazy { StandardSensors(hardwareMap) }
     val armDistance by lazy { standardSensors.armDistanceSensor }
     val gyro: Gyro by lazy { BNO055IMUGyro.standard(hardwareMap) }
+    val pidController = PIDController(1.0 / 45, 0.0, 0.0)
+    val elapsedTime by lazy { ElapsedTime() }
 
     /**
      * Contains code to run during the op mode. Override this method to implement your own subclass of AutoBaseOpMode.
@@ -39,6 +44,7 @@ open class AutoBaseOpMode(
         armDistance
         gyro.initialize()
         gyro.calibrate()
+        time
     }
 }
 
@@ -91,4 +97,24 @@ fun AutoBaseOpMode.turn(target: Double) {
         }
         drive.stop()
     }
+}
+
+fun AutoBaseOpMode.drive(vector: Vector2D, targetAngle: Double, sensor: DistanceSensor, inches: Double) {
+    var previous = elapsedTime.milliseconds()
+    var distance: Double
+
+    pidController.reset()
+
+    do {
+        distance = sensor.getDistance(DistanceUnit.INCH)
+
+        val power = ((distance - inches) / 18).coerceIn(0.2..1.0)
+
+        val currentAngle = gyro.angle
+        val now = elapsedTime.milliseconds()
+        val turn = pidController.evaluate(currentAngle, targetAngle, now - previous)
+        previous = now
+
+        drive.move(power, vector, turn, MecanumDrive.TurnBehavior.MULTIPLY)
+    } while (distance - inches < 2)
 }
