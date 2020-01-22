@@ -58,8 +58,10 @@
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/arm.html"><span class="keyword">val </span><span class="identifier">arm</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/arm-distance.html"><span class="keyword">val </span><span class="identifier">armDistance</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/drive.html"><span class="keyword">val </span><span class="identifier">drive</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/elapsed-time.html"><span class="keyword">val </span><span class="identifier">elapsedTime</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/gyro.html"><span class="keyword">val </span><span class="identifier">gyro</span><span class="symbol">: </span><a href="org.firstinspires.ftc.teamcode.sensors/-gyro/index.html"><span class="identifier">Gyro</span></a></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/ms-per-inch.html"><span class="keyword">val </span><span class="identifier">msPerInch</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/pid-controller.html"><span class="keyword">val </span><span class="identifier">pidController</span><span class="symbol">: </span><a href="org.firstinspires.ftc.teamcode.util/-p-i-d-controller/index.html"><span class="identifier">PIDController</span></a></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/run-op-mode.html"><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">runOpMode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/standard-sensors.html"><span class="keyword">val </span><span class="identifier">standardSensors</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></a></a><br/>
 </BODY>
@@ -488,6 +490,75 @@
 </BODY>
 </HTML>
 </ul>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-p-i-d-controller/index.html"><span class="keyword">class </span><span class="identifier">PIDController</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-p-i-d-controller/-init-.html"><span class="identifier">PIDController</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.PIDController$<init>(kotlin.Double, kotlin.Double, kotlin.Double)/Kp">Kp</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.PIDController$<init>(kotlin.Double, kotlin.Double, kotlin.Double)/Ki">Ki</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.PIDController$<init>(kotlin.Double, kotlin.Double, kotlin.Double)/Kd">Kd</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-p-i-d-controller/evaluate.html"><span class="keyword">fun </span><span class="identifier">evaluate</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.PIDController$evaluate(kotlin.Double, kotlin.Double, kotlin.Double)/current">current</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.PIDController$evaluate(kotlin.Double, kotlin.Double, kotlin.Double)/setpoint">setpoint</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.PIDController$evaluate(kotlin.Double, kotlin.Double, kotlin.Double)/deltaTime">deltaTime</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-p-i-d-controller/-kd.html"><span class="keyword">var </span><span class="identifier">Kd</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-p-i-d-controller/-ki.html"><span class="keyword">var </span><span class="identifier">Ki</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-p-i-d-controller/-kp.html"><span class="keyword">var </span><span class="identifier">Kp</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-p-i-d-controller/reset.html"><span class="keyword">fun </span><span class="identifier">reset</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-p-i-d-test-op-mode/index.html"><span class="keyword">class </span><span class="identifier">PIDTestOpMode</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-p-i-d-test-op-mode/-init-.html"><span class="identifier">PIDTestOpMode</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-p-i-d-test-op-mode/controller.html"><span class="keyword">val </span><span class="identifier">controller</span><span class="symbol">: </span><a href="org.firstinspires.ftc.teamcode.util/-p-i-d-controller/index.html"><span class="identifier">PIDController</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-p-i-d-test-op-mode/drive.html"><span class="keyword">val </span><span class="identifier">drive</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-p-i-d-test-op-mode/elapsed-time.html"><span class="keyword">val </span><span class="identifier">elapsedTime</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-p-i-d-test-op-mode/gyro.html"><span class="keyword">val </span><span class="identifier">gyro</span><span class="symbol">: </span><a href="org.firstinspires.ftc.teamcode.sensors/-gyro/index.html"><span class="identifier">Gyro</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-p-i-d-test-op-mode/init.html"><span class="keyword">fun </span><span class="identifier">init</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-p-i-d-test-op-mode/loop.html"><span class="keyword">fun </span><span class="identifier">loop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-p-i-d-test-op-mode/start.html"><span class="keyword">fun </span><span class="identifier">start</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-skystone-detector/index.html"><span class="keyword">class </span><span class="identifier">SkystoneDetector</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-skystone-detector/-init-.html"><span class="identifier">SkystoneDetector</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.sensors.SkystoneDetector$<init>()/localizer">localizer</span><span class="symbol">:</span>&nbsp;<span class="identifier">&lt;ERROR CLASS&gt;</span><span class="symbol">)</span></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-skystone-detector/get-skystone-position.html"><span class="keyword">fun </span><span class="identifier">getSkystonePosition</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-skystone-detector/init.html"><span class="keyword">fun </span><span class="identifier">init</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-skystone-detector/localizer.html"><span class="keyword">val </span><span class="identifier">localizer</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-skystone-detector/trackables.html"><span class="keyword">val </span><span class="identifier">trackables</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-smart-drive-test-op-mode/index.html"><span class="keyword">class </span><span class="identifier">SmartDriveTestOpMode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/index.html"><span class="identifier">AutoBaseOpMode</span></a></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-smart-drive-test-op-mode/-init-.html"><span class="identifier">SmartDriveTestOpMode</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-smart-drive-test-op-mode/run-op-mode.html"><span class="keyword">fun </span><span class="identifier">runOpMode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
+</BODY>
+</HTML>
+</ul>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-standard-sensors/index.html"><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">StandardSensors</span></a></a><br/>
 <ul>
 <HTML>
@@ -505,6 +576,19 @@
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-standard-sensors/get-left-distance-sensor.html"><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getLeftDistanceSensor</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">DistanceSensor</span><span class="symbol">!</span></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-standard-sensors/get-right-distance-sensor.html"><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getRightDistanceSensor</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">DistanceSensor</span><span class="symbol">!</span></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-standard-sensors/get-voltage.html"><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getVoltage</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-standard-vuforia/index.html"><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">StandardVuforia</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-standard-vuforia/get-localizer.html"><span class="keyword">open</span> <span class="keyword">static</span> <span class="keyword">fun </span><span class="identifier">getLocalizer</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.sensors.StandardVuforia$getLocalizer(HardwareMap)/hardwareMap">hardwareMap</span><span class="symbol">:</span>&nbsp;<span class="identifier">HardwareMap</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">VuforiaLocalizer</span><span class="symbol">!</span></a></a><br/>
 </BODY>
 </HTML>
 </ul>
@@ -588,6 +672,7 @@
 </BODY>
 </HTML>
 </ul>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-vector2-d.html"><span class="keyword">typealias </span><span class="identifier">Vector2D</span>&nbsp;<span class="symbol">=</span>&nbsp;<span class="identifier">Vector2D</span></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-vuforia-test-op-mode/index.html"><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">VuforiaTestOpMode</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">LinearOpMode</span></a></a><br/>
 <ul>
 <HTML>
@@ -807,6 +892,40 @@
 <BODY>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-move-three-inches/-init-.html"><span class="identifier">MoveThreeInches</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-move-three-inches/run-op-mode.html"><span class="keyword">fun </span><span class="identifier">runOpMode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-p-i-d-test-op-mode/index.html"><span class="keyword">class </span><span class="identifier">PIDTestOpMode</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-p-i-d-test-op-mode/-init-.html"><span class="identifier">PIDTestOpMode</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-p-i-d-test-op-mode/controller.html"><span class="keyword">val </span><span class="identifier">controller</span><span class="symbol">: </span><a href="org.firstinspires.ftc.teamcode.util/-p-i-d-controller/index.html"><span class="identifier">PIDController</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-p-i-d-test-op-mode/drive.html"><span class="keyword">val </span><span class="identifier">drive</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-p-i-d-test-op-mode/elapsed-time.html"><span class="keyword">val </span><span class="identifier">elapsedTime</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-p-i-d-test-op-mode/gyro.html"><span class="keyword">val </span><span class="identifier">gyro</span><span class="symbol">: </span><a href="org.firstinspires.ftc.teamcode.sensors/-gyro/index.html"><span class="identifier">Gyro</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-p-i-d-test-op-mode/init.html"><span class="keyword">fun </span><span class="identifier">init</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-p-i-d-test-op-mode/loop.html"><span class="keyword">fun </span><span class="identifier">loop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-p-i-d-test-op-mode/start.html"><span class="keyword">fun </span><span class="identifier">start</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-smart-drive-test-op-mode/index.html"><span class="keyword">class </span><span class="identifier">SmartDriveTestOpMode</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/index.html"><span class="identifier">AutoBaseOpMode</span></a></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-smart-drive-test-op-mode/-init-.html"><span class="identifier">SmartDriveTestOpMode</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode/-smart-drive-test-op-mode/run-op-mode.html"><span class="keyword">fun </span><span class="identifier">runOpMode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
 </BODY>
 </HTML>
 </ul>
@@ -1116,6 +1235,23 @@
 </BODY>
 </HTML>
 </ul>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-skystone-detector/index.html"><span class="keyword">class </span><span class="identifier">SkystoneDetector</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-skystone-detector/-init-.html"><span class="identifier">SkystoneDetector</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.sensors.SkystoneDetector$<init>()/localizer">localizer</span><span class="symbol">:</span>&nbsp;<span class="identifier">&lt;ERROR CLASS&gt;</span><span class="symbol">)</span></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-skystone-detector/get-skystone-position.html"><span class="keyword">fun </span><span class="identifier">getSkystonePosition</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-skystone-detector/init.html"><span class="keyword">fun </span><span class="identifier">init</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-skystone-detector/localizer.html"><span class="keyword">val </span><span class="identifier">localizer</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-skystone-detector/trackables.html"><span class="keyword">val </span><span class="identifier">trackables</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-standard-sensors/index.html"><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">StandardSensors</span></a></a><br/>
 <ul>
 <HTML>
@@ -1133,6 +1269,19 @@
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-standard-sensors/get-left-distance-sensor.html"><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getLeftDistanceSensor</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">DistanceSensor</span><span class="symbol">!</span></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-standard-sensors/get-right-distance-sensor.html"><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getRightDistanceSensor</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">DistanceSensor</span><span class="symbol">!</span></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-standard-sensors/get-voltage.html"><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getVoltage</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-standard-vuforia/index.html"><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">StandardVuforia</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.sensors/-standard-vuforia/get-localizer.html"><span class="keyword">open</span> <span class="keyword">static</span> <span class="keyword">fun </span><span class="identifier">getLocalizer</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.sensors.StandardVuforia$getLocalizer(HardwareMap)/hardwareMap">hardwareMap</span><span class="symbol">:</span>&nbsp;<span class="identifier">HardwareMap</span><span class="symbol">!</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">VuforiaLocalizer</span><span class="symbol">!</span></a></a><br/>
 </BODY>
 </HTML>
 </ul>
@@ -1161,8 +1310,10 @@
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/arm.html"><span class="keyword">val </span><span class="identifier">arm</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/arm-distance.html"><span class="keyword">val </span><span class="identifier">armDistance</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/drive.html"><span class="keyword">val </span><span class="identifier">drive</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/elapsed-time.html"><span class="keyword">val </span><span class="identifier">elapsedTime</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/gyro.html"><span class="keyword">val </span><span class="identifier">gyro</span><span class="symbol">: </span><a href="org.firstinspires.ftc.teamcode.sensors/-gyro/index.html"><span class="identifier">Gyro</span></a></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/ms-per-inch.html"><span class="keyword">val </span><span class="identifier">msPerInch</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/pid-controller.html"><span class="keyword">val </span><span class="identifier">pidController</span><span class="symbol">: </span><a href="org.firstinspires.ftc.teamcode.util/-p-i-d-controller/index.html"><span class="identifier">PIDController</span></a></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/run-op-mode.html"><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">runOpMode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/standard-sensors.html"><span class="keyword">val </span><span class="identifier">standardSensors</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></a></a><br/>
 </BODY>
@@ -1187,6 +1338,7 @@
 </ul>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/drive.html"><span class="keyword">fun </span><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/index.html"><span class="identifier">AutoBaseOpMode</span></a><span class="symbol">.</span><span class="identifier">drive</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$drive(org.firstinspires.ftc.teamcode.util.AutoBaseOpMode, kotlin.Double, kotlin.Double, kotlin.Double)/x">x</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$drive(org.firstinspires.ftc.teamcode.util.AutoBaseOpMode, kotlin.Double, kotlin.Double, kotlin.Double)/y">y</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$drive(org.firstinspires.ftc.teamcode.util.AutoBaseOpMode, kotlin.Double, kotlin.Double, kotlin.Double)/inches">inches</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/drive.html"><span class="keyword">fun </span><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/index.html"><span class="identifier">AutoBaseOpMode</span></a><span class="symbol">.</span><span class="identifier">drive</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$drive(org.firstinspires.ftc.teamcode.util.AutoBaseOpMode, kotlin.Int, kotlin.Int, kotlin.Int)/x">x</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$drive(org.firstinspires.ftc.teamcode.util.AutoBaseOpMode, kotlin.Int, kotlin.Int, kotlin.Int)/y">y</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$drive(org.firstinspires.ftc.teamcode.util.AutoBaseOpMode, kotlin.Int, kotlin.Int, kotlin.Int)/inches">inches</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/drive.html"><span class="keyword">fun </span><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/index.html"><span class="identifier">AutoBaseOpMode</span></a><span class="symbol">.</span><span class="identifier">drive</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$drive(org.firstinspires.ftc.teamcode.util.AutoBaseOpMode, org.firstinspires.ftc.teamcode.movement.MecanumDrive.Motor.Vector2D, kotlin.Double, , kotlin.Double)/vector">vector</span><span class="symbol">:</span>&nbsp;<a href="org.firstinspires.ftc.teamcode.util/-vector2-d.html"><span class="identifier">Vector2D</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$drive(org.firstinspires.ftc.teamcode.util.AutoBaseOpMode, org.firstinspires.ftc.teamcode.movement.MecanumDrive.Motor.Vector2D, kotlin.Double, , kotlin.Double)/targetAngle">targetAngle</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$drive(org.firstinspires.ftc.teamcode.util.AutoBaseOpMode, org.firstinspires.ftc.teamcode.movement.MecanumDrive.Motor.Vector2D, kotlin.Double, , kotlin.Double)/sensor">sensor</span><span class="symbol">:</span>&nbsp;<span class="identifier">&lt;ERROR CLASS&gt;</span><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$drive(org.firstinspires.ftc.teamcode.util.AutoBaseOpMode, org.firstinspires.ftc.teamcode.movement.MecanumDrive.Motor.Vector2D, kotlin.Double, , kotlin.Double)/inches">inches</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/kotlin.-string/index.html"><span class="identifier">kotlin.String</span></a></a><br/>
 <ul>
 <HTML>
@@ -1202,6 +1354,24 @@
 </ul>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/lower-arm.html"><span class="keyword">fun </span><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/index.html"><span class="identifier">AutoBaseOpMode</span></a><span class="symbol">.</span><span class="identifier">lowerArm</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/make-button.html"><span class="keyword">fun </span><span class="identifier">makeButton</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$makeButton(, kotlin.reflect.KProperty1((, kotlin.Boolean)))/gamepad">gamepad</span><span class="symbol">:</span>&nbsp;<span class="identifier">&lt;ERROR CLASS&gt;</span><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$makeButton(, kotlin.reflect.KProperty1((, kotlin.Boolean)))/button">button</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-property1/index.html"><span class="identifier">KProperty1</span></a><span class="symbol">&lt;</span><span class="identifier">&lt;ERROR CLASS&gt;</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="org.firstinspires.ftc.teamcode.util/-button/index.html"><span class="identifier">Button</span></a><span class="symbol">?</span></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-p-i-d-controller/index.html"><span class="keyword">class </span><span class="identifier">PIDController</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-p-i-d-controller/-init-.html"><span class="identifier">PIDController</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.PIDController$<init>(kotlin.Double, kotlin.Double, kotlin.Double)/Kp">Kp</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.PIDController$<init>(kotlin.Double, kotlin.Double, kotlin.Double)/Ki">Ki</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.PIDController$<init>(kotlin.Double, kotlin.Double, kotlin.Double)/Kd">Kd</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-p-i-d-controller/evaluate.html"><span class="keyword">fun </span><span class="identifier">evaluate</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.PIDController$evaluate(kotlin.Double, kotlin.Double, kotlin.Double)/current">current</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.PIDController$evaluate(kotlin.Double, kotlin.Double, kotlin.Double)/setpoint">setpoint</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util.PIDController$evaluate(kotlin.Double, kotlin.Double, kotlin.Double)/deltaTime">deltaTime</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-p-i-d-controller/-kd.html"><span class="keyword">var </span><span class="identifier">Kd</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-p-i-d-controller/-ki.html"><span class="keyword">var </span><span class="identifier">Ki</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-p-i-d-controller/-kp.html"><span class="keyword">var </span><span class="identifier">Kp</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-p-i-d-controller/reset.html"><span class="keyword">fun </span><span class="identifier">reset</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
+</BODY>
+</HTML>
+</ul>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/plus-assign.html"><span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">&lt;ERROR CLASS&gt;</span><span class="symbol">.</span><span class="identifier">plusAssign</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$plusAssign(, kotlin.String)/line">line</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/raise-arm.html"><span class="keyword">fun </span><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/index.html"><span class="identifier">AutoBaseOpMode</span></a><span class="symbol">.</span><span class="identifier">raiseArm</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/set.html"><span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">&lt;ERROR CLASS&gt;</span><span class="symbol">.</span><span class="identifier">set</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$set(, kotlin.String, kotlin.Any)/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$set(, kotlin.String, kotlin.Any)/value">value</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
@@ -1240,6 +1410,7 @@
 </HTML>
 </ul>
 <a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/turn.html"><span class="keyword">fun </span><a href="org.firstinspires.ftc.teamcode.util/-auto-base-op-mode/index.html"><span class="identifier">AutoBaseOpMode</span></a><span class="symbol">.</span><span class="identifier">turn</span><span class="symbol">(</span><span class="identifier" id="org.firstinspires.ftc.teamcode.util$turn(org.firstinspires.ftc.teamcode.util.AutoBaseOpMode, kotlin.Double)/target">target</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
+<a href="dokka/out/team-a-2019-2020/index"><a href="org.firstinspires.ftc.teamcode.util/-vector2-d.html"><span class="keyword">typealias </span><span class="identifier">Vector2D</span>&nbsp;<span class="symbol">=</span>&nbsp;<span class="identifier">Vector2D</span></a></a><br/>
 </BODY>
 </HTML>
 </ul>
