@@ -19,7 +19,7 @@ class GyroTestOpMode: OpMode() {
 
     override fun init() {
         gyro.initialize()
-        distanceSensors = listOf("Arm" to sensors.armDistanceSensor, "Front" to sensors.frontDistanceSensor, "Right" to sensors.rightDistanceSensor)
+        distanceSensors = listOf("Arm" to sensors.armDistanceSensor, "Front" to sensors.frontDistanceSensor, "Left" to sensors.leftDistanceSensor, "Right" to sensors.rightDistanceSensor)
     }
 
     override fun loop() {
