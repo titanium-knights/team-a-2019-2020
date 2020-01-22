@@ -60,13 +60,10 @@ open class AutoQuarryOpMode(
         colorSensor.enableLed(false)
 
         // Move towards the third stone from center
-        drive(Vector2D(0.0, 1.0), startingDir, frontDistance, 4.0)
+        drive(Vector2D(0.0, 1.0), startingDir, frontDistance, 10.0)
 
-        // Move 1 inch away from the edge of the stone away from the center
-        if (colorModifier > 0) {
-            drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, 16.0)
-        } else {
-            drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, 28.0)
+        while (opModeIsActive()) {
+
         }
 
         return

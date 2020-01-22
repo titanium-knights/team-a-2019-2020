@@ -42,6 +42,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.teamcode.sensors.SkystoneDetector;
 import org.firstinspires.ftc.teamcode.sensors.VuforiaAuthKey;
 
 import java.util.ArrayList;
@@ -273,7 +274,7 @@ public class VuforiaTestOpMode extends LinearOpMode {
 
         // Rotate the phone vertical about the X axis if it's in portrait mode
         if (PHONE_IS_PORTRAIT) {
-            phoneXRotate = 270 ;
+            phoneXRotate = 90 ;
         }
 
         // Next, translate the camera lens to where it is on the robot.
@@ -304,6 +305,7 @@ public class VuforiaTestOpMode extends LinearOpMode {
         // Tap the preview window to receive a fresh image.
 
         targetsSkyStone.activate();
+        SkystoneDetector detector = new SkystoneDetector(vuforia);
         while (!isStopRequested()) {
 
             // check all the trackable targets to see which one (if any) is visible.
@@ -337,6 +339,7 @@ public class VuforiaTestOpMode extends LinearOpMode {
             else {
                 telemetry.addData("Visible Target", "none");
             }
+            telemetry.addData("Stone Position", detector.getSkystonePosition());
             telemetry.update();
         }
 
