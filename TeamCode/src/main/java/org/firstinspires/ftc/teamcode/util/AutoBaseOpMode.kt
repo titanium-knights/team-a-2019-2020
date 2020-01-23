@@ -99,18 +99,18 @@ fun AutoBaseOpMode.turn(target: Double) {
     }
 }
 
-fun AutoBaseOpMode.drive(vector: Vector2D, targetAngle: Double, sensor: DistanceSensor, inches: Double) {
+fun AutoBaseOpMode.drive(vector: Vector2D, targetAngle: Double, sensor: DistanceSensor, inches: Double, onLoop: (Double) -> Unit = {}) {
     var previous = elapsedTime.milliseconds()
 
     pidController.reset()
 
     var prevDistance: Double
-    var distance = sensor.getDistance(DistanceUnit.INCH)
+    var distance = sensor.getDistance(DistanceUnit.INCH) * sign(inches)
     sleep(10L)
 
     do {
         prevDistance = distance
-        distance = sensor.getDistance(DistanceUnit.INCH)
+        distance = sensor.getDistance(DistanceUnit.INCH) * sign(inches)
         val avgDistance = (prevDistance + distance) / 2
 
         val power = ((avgDistance - inches) / 18).coerceIn(0.2..1.0)
@@ -121,7 +121,8 @@ fun AutoBaseOpMode.drive(vector: Vector2D, targetAngle: Double, sensor: Distance
         previous = now
 
         drive.move(power, vector, turn, MecanumDrive.TurnBehavior.ADDSUBTRACT)
-        sleep(10L)
+        onLoop(distance)
+        sleep(8L)
     } while ((prevDistance + distance) / 2 - inches >= 3 && opModeIsActive())
 
     drive.stop()

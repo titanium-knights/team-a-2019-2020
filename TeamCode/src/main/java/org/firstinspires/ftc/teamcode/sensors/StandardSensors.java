@@ -45,9 +45,10 @@ public class StandardSensors {
         return hardwareMap.get(DistanceSensor.class, name);
     }
 
-    public DistanceSensor getFrontDistanceSensor() { return getDistanceSensor("front_distance"); }
+    @Deprecated public DistanceSensor getFrontDistanceSensor() { return getDistanceSensor("front_distance"); }
     public DistanceSensor getLeftDistanceSensor() { return getDistanceSensor("left_distance"); }
     public DistanceSensor getRightDistanceSensor() { return getDistanceSensor("right_distance"); }
+    public DistanceSensor getBackDistanceSensor() { return getDistanceSensor("back_distance"); }
     public DistanceSensor getArmDistanceSensor() { return getDistanceSensor("arm_distance"); }
 
     public TouchSensor getArmTouchSensor() { return hardwareMap.get(TouchSensor.class, "arm_touch"); }
