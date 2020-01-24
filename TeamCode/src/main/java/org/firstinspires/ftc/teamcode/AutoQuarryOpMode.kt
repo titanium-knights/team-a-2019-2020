@@ -23,7 +23,8 @@ open class AutoQuarryOpMode(
     enum class DistanceSide { LEFT, RIGHT }
 
     private val grabber: Grabber by lazy { Grabber.standard(hardwareMap) }
-    private val colorSensor: ColorSensor by lazy { standardSensors.colorSensor }
+    private val leftColorSensor: ColorSensor by lazy { standardSensors.leftColorSensor }
+    private val rightColorSensor: ColorSensor by lazy { standardSensors.rightColorSensor }
     private val backDistance: DistanceSensor by lazy { standardSensors.backDistanceSensor }
     private val clamps: FoundationClamps by lazy { FoundationClamps.standard(hardwareMap) }
     private val sideDistance: DistanceSensor by lazy { when (distanceSide) {
@@ -42,11 +43,7 @@ open class AutoQuarryOpMode(
     override fun runOpMode() {
         super.runOpMode()
 
-        if (colorSensor.argb() == 0) {
-            telemetry["Warning"] = "Color sensor is returning 0. It is likely not working properly."
-        }
-
-        colorSensor
+        arrayOf(leftColorSensor, rightColorSensor).forEach { it.enableLed(false) }
         backDistance
         sideDistance
 
@@ -62,28 +59,22 @@ open class AutoQuarryOpMode(
         // Lift grabber and disable color sensor LED
         grabber.lift()
         clamps.moveDown()
-        colorSensor.enableLed(false)
 
         // Move towards the center stone
         drive(Vector2D(0.0, 1.0), startingDir, backDistance, -44.0)
 
         // Move right, checking for the skystone
-        var minRatio = Double.MAX_VALUE
-        var nextStone = 0
-        val startDistance = sideDistance.getDistance(DistanceUnit.INCH)
-        drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, 37.5) {
-            val currentStone = (startDistance - it).toInt() / 8
-            if (nextStone >= currentStone) {
-                nextStone = currentStone + 1
+        val left = leftColorSensor.red().toDouble() / leftColorSensor.green()
+        val right = rightColorSensor.red().toDouble() / rightColorSensor.green()
 
-                if (colorSensor.red().toDouble() / colorSensor.green() < minRatio) {
-                    skystonePos = currentStone
-                }
-            }
+        skystonePos = when {
+            abs(left - right) < 0.03 -> 1
+            left < right -> 0
+            else -> 2
         }
 
-        val inchesToMove = ((skystonePos + 1) % 3 - 1) * 8.0
-        drive(Vector2D(sign(inchesToMove) * colorModifier, 0.0), startingDir, sideDistance, 37.5 - inchesToMove)
+        val inchesToMove = (skystonePos - 1) * 8.0
+        drive(Vector2D(sign(inchesToMove) * colorModifier, 0.0), startingDir, sideDistance, -(37.5 - inchesToMove))
 
         drive(Vector2D(0.0, 1.0), startingDir, backDistance, -50.0)
         grabber.grab()
