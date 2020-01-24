@@ -61,7 +61,7 @@ open class AutoQuarryOpMode(
         clamps.moveDown()
 
         // Move towards the center stone
-        drive(Vector2D(0.0, 1.0), startingDir, backDistance, -44.0)
+        drive(Vector2D(0.0, 1.0), startingDir, backDistance, -26.0)
 
         // Move right, checking for the skystone
         val left = leftColorSensor.red().toDouble() / leftColorSensor.green()
@@ -74,9 +74,9 @@ open class AutoQuarryOpMode(
         }
 
         val inchesToMove = (skystonePos - 1) * 8.0
-        drive(Vector2D(sign(inchesToMove) * colorModifier, 0.0), startingDir, sideDistance, -(37.5 - inchesToMove))
+        drive(Vector2D(sign(inchesToMove) * colorModifier, 0.0), startingDir, sideDistance, -(24 + inchesToMove - 5))
 
-        drive(Vector2D(0.0, 1.0), startingDir, backDistance, -50.0)
+        drive(Vector2D(0.0, 1.0), startingDir, backDistance, -32.0)
         grabber.grab()
         sleep(grabberTime)
         raiseArm()
@@ -94,48 +94,39 @@ open class AutoQuarryOpMode(
         arm.stop()
         grabber.grab()
         drive(Vector2D(colorModifier, 0.0), startingDir, otherSideDistance, -55.0)
-        arm.setVerticalPower(-1.0)
+        arm.setHorizontalPower(1.0)
+        sleep(200L)
+        arm.stop()
+        lowerArm()
+        arm.stop()
+
+        drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, (if (skystonePos == 2) 5 else skystonePos) * 8.0 - 5)
+
+        grabber.grab()
+        sleep(grabberTime)
+        raiseArm()
+
+        // Push back
+        drive(Vector2D(0.0, -1.0), startingDir, backDistance, 27.0)
+
+        // Cross skybridge
+        drive(Vector2D(-colorModifier, 0.0), startingDir, otherSideDistance, 50.0)
+
+        // Release stone
+        arm.setVerticalPower(1.0)
+        grabber.lift()
         sleep(500L)
+        arm.stop()
+        grabber.grab()
+        drive(Vector2D(colorModifier, 0.0), startingDir, otherSideDistance, -55.0)
+        arm.setHorizontalPower(1.0)
+        sleep(200L)
+        arm.stop()
+        lowerArm()
         arm.stop()
 
         // Park
         drive(Vector2D(colorModifier, 0.0), startingDir, otherSideDistance, -63.0)
-
-        /* arm.setHorizontalPower(1.0)
-        sleep(200L)
-        arm.stop()
-
-        lowerArm()
-        turn(startingDir)
-
-        if (skystonePos == 2) {
-            skystonePos = 0
-        }
-        val target = (2 - skystonePos) * 8.0 - 5.0
-        drive.move(0.8, MecanumDrive.Motor.Vector2D(colorModifier, 0.0), 0.0)
-        while (abs(target - rightDistance.getDistance(DistanceUnit.INCH)) > 15) {
-            idle()
-        }
-        drive.move(0.2, MecanumDrive.Motor.Vector2D(colorModifier, 0.0), 0.0)
-        while (abs(target - rightDistance.getDistance(DistanceUnit.INCH)) > 3) {
-            idle()
-        }
-        drive.stop()
-
-        drive.forwardWithPower(0.15)
-        while (frontDistance.getDistance(DistanceUnit.INCH) > 4) {
-            idle()
-        }
-        drive(0.0, 0.5, 2.0 * 2)
-        grabber.grab()
-        sleep(grabberTime)
-        raiseArm()
-        drive(0.0, -0.5, 3.0 * 2)
-        turn(startingDir - 90 * colorModifier)
-        drive(0.0, 1.0, 75.0 - target)
-        grabber.lift()
-        drive(0.0, -1.0, 9.0) */
-
     }
 }
 
