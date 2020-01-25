@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.sensors;
 
+import android.graphics.Color;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -37,8 +38,14 @@ public class StandardSensors {
      * Returns a color sensor preconfigured for our robot.
      * @return a preconfigured color sensor.
      */
-    public ColorSensor getColorSensor() {
-        return hardwareMap.get(ColorSensor.class, "color");
+    @Deprecated public ColorSensor getColorSensor() {
+        return getLeftColorSensor();
+    }
+    public ColorSensor getLeftColorSensor() {
+        return hardwareMap.get(ColorSensor.class, "left_color");
+    }
+    public ColorSensor getRightColorSensor() {
+        return hardwareMap.get(ColorSensor.class, "right_color");
     }
 
     private DistanceSensor getDistanceSensor(String name) {

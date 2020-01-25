@@ -19,7 +19,7 @@ class GyroTestOpMode: OpMode() {
 
     override fun init() {
         gyro.initialize()
-        distanceSensors = listOf("Arm" to sensors.armDistanceSensor, "Front" to sensors.frontDistanceSensor, "Left" to sensors.leftDistanceSensor, "Right" to sensors.rightDistanceSensor)
+        distanceSensors = listOf("Arm" to sensors.armDistanceSensor, "Back" to sensors.backDistanceSensor, "Left" to sensors.leftDistanceSensor, "Right" to sensors.rightDistanceSensor)
     }
 
     override fun loop() {
@@ -29,7 +29,7 @@ class GyroTestOpMode: OpMode() {
         telemetry["Z"] = angles.thirdAngle
 
         for (sensor in distanceSensors) {
-            telemetry["Distance ${sensor.first}"] = sensor.second.getDistance(DistanceUnit.INCH)
+            telemetry["Distance ${sensor.first}"] = sensor.second.getDistance(DistanceUnit.CM)
         }
     }
 }
