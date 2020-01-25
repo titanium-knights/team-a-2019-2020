@@ -29,7 +29,7 @@ class GyroTestOpMode: OpMode() {
         telemetry["Z"] = angles.thirdAngle
 
         for (sensor in distanceSensors) {
-            telemetry["Distance ${sensor.first}"] = sensor.second.getDistance(DistanceUnit.CM)
+            telemetry["Distance ${sensor.first}"] = sensor.second.getDistance(DistanceUnit.INCH)
         }
     }
 }
