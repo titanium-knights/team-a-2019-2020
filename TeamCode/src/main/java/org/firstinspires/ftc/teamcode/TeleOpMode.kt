@@ -14,6 +14,8 @@ import org.firstinspires.ftc.teamcode.util.Button
 import org.firstinspires.ftc.teamcode.util.makeButton
 import org.firstinspires.ftc.teamcode.util.plusAssign
 import org.firstinspires.ftc.teamcode.util.rem
+import kotlin.math.max
+import kotlin.math.min
 
 /*
  Gamepad 1:
@@ -79,12 +81,12 @@ class TeleOpMode: OpMode() {
             return false
         }
 
-        if (time - armStartTime > 5) {
+        if (time - armStartTime > 3) {
             return true
         }
 
         return when (armState) {
-            ArmState.MOVE_DOWN -> armDistance.getDistance(DistanceUnit.INCH) < 4
+            ArmState.MOVE_DOWN -> armDistance.getDistance(DistanceUnit.INCH) < 4.2
             ArmState.MOVE_UP -> armDistance.getDistance(DistanceUnit.INCH) > 6.5
             ArmState.MOVE_TO_TOUCH_SENSOR -> armTouch.isPressed || gamepad2.right_stick_x != 0.0F
             else -> true
@@ -154,23 +156,32 @@ class TeleOpMode: OpMode() {
         val vertical = when (armState) {
             ArmState.MOVE_UP -> 0.8
             ArmState.MOVE_DOWN -> -1.0
-            else -> -gamepad2.left_stick_y.toDouble()
+            else -> if (!bypass && armDistance.getDistance(DistanceUnit.INCH) < 4.2)
+                        max(0.0, -gamepad2.left_stick_y.toDouble())
+                    else -gamepad2.left_stick_y.toDouble()
         }
         arm.setPowers(horizontal, vertical)
+
+        if (bypass) {
+            telemetry += "+----------------------------+"
+            telemetry += "| Software limits are being  |"
+            telemetry += "| bypassed! Use caution.     |"
+            telemetry += "+----------------------------+"
+            telemetry += ""
+        }
 
         telemetry += "=== DRIVE ==="
         telemetry += "X = %.2f, Y = %.2f, Turn = %.2f" % arrayOf(vector.x, vector.y, turn)
 
+        telemetry += ""
         telemetry += "=== ARM ==="
         telemetry += "Mode: ${armState.telemetryName}"
         telemetry += ""
-        telemetry += "< Horizontal >: %.2f" % arrayOf(horizontal)
-        telemetry += "^  Vertical  v: %.2f" % arrayOf(vertical)
+        telemetry += "Horizontal: %.2f" % arrayOf(horizontal)
+        telemetry += "Vertical: %.2f" % arrayOf(vertical)
         telemetry += ""
         telemetry += if (armTouch.isPressed) "•   Arm" else "    Arm"
-        telemetry += "     |     "
         telemetry += "(%06.2f in)" % arrayOf(distance)
-        telemetry += "     |     "
         telemetry += "   Floor   "
     }
 }

@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.sensors.Gyro
 import org.firstinspires.ftc.teamcode.sensors.StandardSensors
 import org.firstinspires.ftc.teamcode.util.*
 import kotlin.math.abs
+import kotlin.math.sign
 
 open class AutoQuarryOpMode(
         private val colorModifier: Double,
@@ -22,27 +23,53 @@ open class AutoQuarryOpMode(
     enum class DistanceSide { LEFT, RIGHT }
 
     private val grabber: Grabber by lazy { Grabber.standard(hardwareMap) }
-    private val colorSensor: ColorSensor by lazy { standardSensors.colorSensor }
-    private val frontDistance: DistanceSensor by lazy { standardSensors.frontDistanceSensor }
+    private val leftColorSensor: ColorSensor by lazy { standardSensors.leftColorSensor }
+    private val rightColorSensor: ColorSensor by lazy { standardSensors.rightColorSensor }
+    private val backDistance: DistanceSensor by lazy { standardSensors.backDistanceSensor }
     private val clamps: FoundationClamps by lazy { FoundationClamps.standard(hardwareMap) }
     private val sideDistance: DistanceSensor by lazy { when (distanceSide) {
         DistanceSide.LEFT -> standardSensors.leftDistanceSensor
         DistanceSide.RIGHT -> standardSensors.rightDistanceSensor
     } }
+    private val otherSideDistance: DistanceSensor by lazy { when (distanceSide) {
+        DistanceSide.LEFT -> standardSensors.rightDistanceSensor
+        DistanceSide.RIGHT -> standardSensors.leftDistanceSensor
+    } }
 
-    private var skystonePos = 0 // 0 is stone at center
+    private var skystonePos = 0 // 0 is stone at wall
 
     private val grabberTime = 1000L
+
+    fun collect(startingDir: Double) {
+        drive(Vector2D(0.0, 1.0), startingDir, backDistance, -35.0)
+        grabber.grab()
+        sleep(grabberTime)
+        raiseArm()
+
+        // Push back
+        drive(Vector2D(0.0, -1.0), startingDir, backDistance, 24.6)
+
+        // Cross skybridge
+        drive(Vector2D(-colorModifier, 0.0), startingDir, sideDistance, -50.0, false)
+        drive(Vector2D(-colorModifier, 0.0), startingDir, otherSideDistance, 50.0)
+
+        // Release stone
+        arm.setVerticalPower(1.0)
+        grabber.lift()
+        sleep(700L)
+        arm.stop()
+
+        drive(colorModifier * 0.5, 0.0, 15.0)
+        arm.setVerticalPower(-1.0)
+        sleep(700L)
+        arm.stop()
+    }
 
     override fun runOpMode() {
         super.runOpMode()
 
-        if (colorSensor.argb() == 0) {
-            telemetry["Warning"] = "Color sensor is returning 0. It is likely not working properly."
-        }
-
-        colorSensor
-        frontDistance
+        arrayOf(leftColorSensor, rightColorSensor).forEach { it.enableLed(false) }
+        backDistance
         sideDistance
 
         telemetry["Status"] = "Initialized"
@@ -57,122 +84,41 @@ open class AutoQuarryOpMode(
         // Lift grabber and disable color sensor LED
         grabber.lift()
         clamps.moveDown()
-        colorSensor.enableLed(false)
+        drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, 30.0)
 
-        // Move towards the third stone from center
-        drive(Vector2D(0.0, 1.0), startingDir, frontDistance, 10.0)
+        // Move towards the center stone
+        drive(Vector2D(0.0, 1.0), startingDir, backDistance, -31.0)
 
-        while (opModeIsActive()) {
-
-        }
-
-        return
-
-        // For each stone, see if it's the skystone, then move right and check the next one
-        var minLuminosity = Double.MAX_VALUE
-        var lumLog = ""
-        for (pos in 2 downTo 0) {
-            sleep(300L)
-
-            val luminosity = colorSensor.red().toDouble() / colorSensor.green()
-            if (luminosity < minLuminosity) {
-                skystonePos = pos
-                minLuminosity = luminosity
-            }
-
-            lumLog += "$luminosity  "
-
-            telemetry["Starting Direction"] = startingDir
-            telemetry["Skystone Position"] = skystonePos
-            telemetry["Luminosity"] = lumLog
-            telemetry["Luminosity (min)"] = minLuminosity
-            telemetry["Arm Pos"] = arm.verticalMotor.currentPosition
-            telemetry.update()
-
-            if (pos > 0) {
-                drive(-colorModifier / 2, 0.0, 8.0 * 2 / 8 * 6.5)
-                turn(startingDir)
-            }
-        }
-
-        // Grab stone and wait for grabber to finish
-        val inchesToMove = skystonePos * 8.0 - (if (colorModifier > 0) 4.0 else -5.85)
-
-        drive(colorModifier, 0.0, inchesToMove)
-
-        drive(0.0, 0.5, 2.0 * 2)
-        grabber.grab()
-        sleep(grabberTime)
-
-        raiseArm()
-
-        // Push back
-        drive(0.0, -0.5, (if (colorModifier > 0) 6.0 else 8.25))
-
-        telemetry["Starting Direction"] = startingDir
-        telemetry["Current Angle"] = gyro.angle
-        telemetry["Skystone Position"] = skystonePos
-        telemetry["Luminosity"] = lumLog
-        telemetry["Luminosity (min)"] = minLuminosity
-        telemetry.update()
-
-        // Correct for any drift
-        turn(startingDir)
-
-        // Cross skybridge
-        drive(-colorModifier, 0.0, skystonePos * 8.0 + 54.0)
-
-        // Release stone
-        arm.setVerticalPower(1.0)
-        grabber.lift()
-        sleep(500L)
-        arm.stop()
-        grabber.grab()
-        drive(colorModifier, 0.0, 4.0)
-        arm.setVerticalPower(-1.0)
-        sleep(500L)
-        arm.stop()
-
-        turn(startingDir)
-
-        // Park
-        drive(colorModifier, 0.0, 14.0)
-
-        /* arm.setHorizontalPower(1.0)
         sleep(200L)
-        arm.stop()
 
+        // Move right, checking for the skystone
+        val left = leftColorSensor.red().toDouble() / leftColorSensor.green()
+        val right = rightColorSensor.red().toDouble() / rightColorSensor.green()
+
+        skystonePos = when {
+            abs(left - right) < 0.04 -> 1
+            left < right -> 2
+            else -> 0
+        }
+
+        skystonePos = sign(colorModifier).toInt() * (skystonePos - 1) + 1
+
+        when (skystonePos) {
+            2 -> drive(Vector2D(-colorModifier, 0.0), startingDir, sideDistance, -40.0)
+            0 -> drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, 21.0)
+        }
+
+        collect(startingDir)
+
+        arm.setPowers(0.5, 0.0)
+        sleep(200L)
+        arm.setHorizontalPower(0.0)
         lowerArm()
-        turn(startingDir)
 
-        if (skystonePos == 2) {
-            skystonePos = 0
-        }
-        val target = (2 - skystonePos) * 8.0 - 5.0
-        drive.move(0.8, MecanumDrive.Motor.Vector2D(colorModifier, 0.0), 0.0)
-        while (abs(target - rightDistance.getDistance(DistanceUnit.INCH)) > 15) {
-            idle()
-        }
-        drive.move(0.2, MecanumDrive.Motor.Vector2D(colorModifier, 0.0), 0.0)
-        while (abs(target - rightDistance.getDistance(DistanceUnit.INCH)) > 3) {
-            idle()
-        }
-        drive.stop()
+        drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, (if (skystonePos == 0) 5 else skystonePos) * 8.0 - 1.5)
 
-        drive.forwardWithPower(0.15)
-        while (frontDistance.getDistance(DistanceUnit.INCH) > 4) {
-            idle()
-        }
-        drive(0.0, 0.5, 2.0 * 2)
-        grabber.grab()
-        sleep(grabberTime)
-        raiseArm()
-        drive(0.0, -0.5, 3.0 * 2)
-        turn(startingDir - 90 * colorModifier)
-        drive(0.0, 1.0, 75.0 - target)
-        grabber.lift()
-        drive(0.0, -1.0, 9.0) */
-
+        collect(startingDir)
+        drive(colorModifier * 0.5, 0.0, 15.0)
     }
 }
 
