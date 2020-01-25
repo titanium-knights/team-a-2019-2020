@@ -83,7 +83,7 @@ fun AutoBaseOpMode.raiseArm() {
 
 fun AutoBaseOpMode.lowerArm() {
     arm.setVerticalPower(-1.0)
-    while (armDistance.getDistance(DistanceUnit.INCH) > 4 && opModeIsActive()) {
+    while (armDistance.getDistance(DistanceUnit.INCH) > 4.2 && opModeIsActive()) {
         idle()
     }
     arm.stop()

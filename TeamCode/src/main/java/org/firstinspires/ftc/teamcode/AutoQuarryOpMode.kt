@@ -47,7 +47,7 @@ open class AutoQuarryOpMode(
         raiseArm()
 
         // Push back
-        drive(Vector2D(0.0, -1.0), startingDir, backDistance, 25.2)
+        drive(Vector2D(0.0, -1.0), startingDir, backDistance, 24.6)
 
         // Cross skybridge
         drive(Vector2D(-colorModifier, 0.0), startingDir, sideDistance, -50.0, false)
@@ -58,7 +58,6 @@ open class AutoQuarryOpMode(
         grabber.lift()
         sleep(700L)
         arm.stop()
-        grabber.grab()
 
         drive(colorModifier * 0.5, 0.0, 15.0)
         arm.setVerticalPower(-1.0)
@@ -102,12 +101,12 @@ open class AutoQuarryOpMode(
             else -> 0
         }
 
+        skystonePos = sign(colorModifier).toInt() * (skystonePos - 1) + 1
+
         when (skystonePos) {
             2 -> drive(Vector2D(-colorModifier, 0.0), startingDir, sideDistance, -40.0)
             0 -> drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, 21.0)
         }
-
-        skystonePos = sign(colorModifier).toInt() * (skystonePos - 1) + 1
 
         collect(startingDir)
 
@@ -117,7 +116,6 @@ open class AutoQuarryOpMode(
         lowerArm()
 
         drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, (if (skystonePos == 0) 5 else skystonePos) * 8.0 - 1.5)
-        grabber.lift()
 
         collect(startingDir)
         drive(colorModifier * 0.5, 0.0, 15.0)
