@@ -122,6 +122,10 @@ fun AutoBaseOpMode.drive(vector: Vector2D, targetAngle: Double, sensor: Distance
 
         drive.move(power, vector, turn, MecanumDrive.TurnBehavior.ADDSUBTRACT)
         onLoop(distance)
+
+        telemetry["Distance"] = distance
+        telemetry.update()
+
         sleep(8L)
     } while ((prevDistance + distance) / 2 - inches >= 3 && opModeIsActive())
 

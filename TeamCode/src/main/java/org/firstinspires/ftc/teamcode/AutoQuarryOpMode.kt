@@ -68,21 +68,23 @@ open class AutoQuarryOpMode(
         val right = rightColorSensor.red().toDouble() / rightColorSensor.green()
 
         skystonePos = when {
-            abs(left - right) < 0.03 -> 1
+            abs(left - right) < 0.02 -> 1
             left < right -> 0
             else -> 2
         }
 
-        val inchesToMove = (skystonePos - 1) * 8.0
-        drive(Vector2D(sign(inchesToMove) * colorModifier, 0.0), startingDir, sideDistance, -(24 + inchesToMove - 5))
+        when (skystonePos) {
+            0 -> drive(Vector2D(-colorModifier, 0.0), startingDir, sideDistance, -33.0)
+            2 -> drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, 17.0)
+        }
 
-        drive(Vector2D(0.0, 1.0), startingDir, backDistance, -32.0)
+        drive(Vector2D(0.0, 1.0), startingDir, backDistance, -35.0)
         grabber.grab()
         sleep(grabberTime)
         raiseArm()
 
         // Push back
-        drive(Vector2D(0.0, -1.0), startingDir, backDistance, 27.0)
+        drive(Vector2D(0.0, -1.0), startingDir, backDistance, 24.0)
 
         // Cross skybridge
         drive(Vector2D(-colorModifier, 0.0), startingDir, otherSideDistance, 50.0)
@@ -94,39 +96,14 @@ open class AutoQuarryOpMode(
         arm.stop()
         grabber.grab()
         drive(Vector2D(colorModifier, 0.0), startingDir, otherSideDistance, -55.0)
-        arm.setHorizontalPower(1.0)
+        arm.setVerticalPower(-1.0)
+        sleep(500L)
+        arm.setPowers(0.5, 0.0)
         sleep(200L)
-        arm.stop()
+        arm.setHorizontalPower(0.0)
         lowerArm()
-        arm.stop()
 
         drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, (if (skystonePos == 2) 5 else skystonePos) * 8.0 - 5)
-
-        grabber.grab()
-        sleep(grabberTime)
-        raiseArm()
-
-        // Push back
-        drive(Vector2D(0.0, -1.0), startingDir, backDistance, 27.0)
-
-        // Cross skybridge
-        drive(Vector2D(-colorModifier, 0.0), startingDir, otherSideDistance, 50.0)
-
-        // Release stone
-        arm.setVerticalPower(1.0)
-        grabber.lift()
-        sleep(500L)
-        arm.stop()
-        grabber.grab()
-        drive(Vector2D(colorModifier, 0.0), startingDir, otherSideDistance, -55.0)
-        arm.setHorizontalPower(1.0)
-        sleep(200L)
-        arm.stop()
-        lowerArm()
-        arm.stop()
-
-        // Park
-        drive(Vector2D(colorModifier, 0.0), startingDir, otherSideDistance, -63.0)
     }
 }
 
