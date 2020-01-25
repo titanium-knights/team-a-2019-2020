@@ -61,21 +61,23 @@ open class AutoQuarryOpMode(
         clamps.moveDown()
 
         // Move towards the center stone
-        drive(Vector2D(0.0, 1.0), startingDir, backDistance, -26.0)
+        drive(Vector2D(0.0, 1.0), startingDir, backDistance, -31.0)
+
+        sleep(200L)
 
         // Move right, checking for the skystone
         val left = leftColorSensor.red().toDouble() / leftColorSensor.green()
         val right = rightColorSensor.red().toDouble() / rightColorSensor.green()
 
         skystonePos = when {
-            abs(left - right) < 0.02 -> 1
+            abs(left - right) < 0.04 -> 1
             left < right -> 0
             else -> 2
         }
 
         when (skystonePos) {
-            0 -> drive(Vector2D(-colorModifier, 0.0), startingDir, sideDistance, -33.0)
-            2 -> drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, 17.0)
+            0 -> drive(Vector2D(-colorModifier, 0.0), startingDir, sideDistance, -40.0)
+            2 -> drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, 21.0)
         }
 
         drive(Vector2D(0.0, 1.0), startingDir, backDistance, -35.0)
@@ -95,6 +97,9 @@ open class AutoQuarryOpMode(
         sleep(500L)
         arm.stop()
         grabber.grab()
+
+        return
+
         drive(Vector2D(colorModifier, 0.0), startingDir, otherSideDistance, -55.0)
         arm.setVerticalPower(-1.0)
         sleep(500L)

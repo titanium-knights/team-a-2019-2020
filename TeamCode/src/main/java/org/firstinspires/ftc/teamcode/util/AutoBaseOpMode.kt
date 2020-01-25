@@ -75,7 +75,7 @@ fun AutoBaseOpMode.drive(x: Int, y: Int, inches: Int) {
 
 fun AutoBaseOpMode.raiseArm() {
     arm.setVerticalPower(0.8)
-    while (armDistance.getDistance(DistanceUnit.INCH) < 6.5) {
+    while (armDistance.getDistance(DistanceUnit.INCH) < 6.3) {
         idle()
     }
     arm.stop()
