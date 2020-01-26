@@ -51,6 +51,7 @@ open class AutoQuarryOpMode(
 
         // Cross skybridge
         drive(Vector2D(-colorModifier, 0.0), startingDir, sideDistance, -50.0, false)
+        drive(-colorModifier, 0.0, 44.0)
         drive(Vector2D(-colorModifier, 0.0), startingDir, otherSideDistance, 50.0)
 
         // Release stone
