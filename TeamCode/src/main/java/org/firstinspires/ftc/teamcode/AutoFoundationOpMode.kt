@@ -31,8 +31,10 @@ open class AutoFoundationOpMode(
         grabber.lift()
         raiseArm()
 
+        drive(Vector2D(-colorModifier, 0.0), startingDir, sideDistance, 12.0)
+
         // Move forward to foundation
-        drive(Vector2D(0.0, 1.0), startingDir, backDistance, -33.0)
+        drive(Vector2D(0.0, 1.0), startingDir, backDistance, -36.0)
         clamps.moveDown()
         sleep(CLAMP_TIME)
 
@@ -41,9 +43,10 @@ open class AutoFoundationOpMode(
         clamps.moveUp()
         sleep(CLAMP_TIME)
 
-        drive(0.0, 0.5, 2.0)
-
-        drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, 63.0)
+        drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, -50.0)
+        grabber.grab()
+        lowerArm()
+        drive(colorModifier, 0.0, 19.0)
     }
 }
 
