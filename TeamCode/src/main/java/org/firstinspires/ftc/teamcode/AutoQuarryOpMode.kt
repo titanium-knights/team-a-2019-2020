@@ -47,7 +47,7 @@ open class AutoQuarryOpMode(
         raiseArm()
 
         // Push back
-        drive(Vector2D(0.0, -1.0), startingDir, backDistance, 24.6)
+        drive(Vector2D(0.0, -1.0), startingDir, backDistance, 24.5)
 
         // Cross skybridge
         drive(Vector2D(-colorModifier, 0.0), startingDir, sideDistance, -50.0, false)
@@ -78,6 +78,10 @@ open class AutoQuarryOpMode(
 
         waitForStart()
 
+        if (isStopRequested) {
+            return;
+        }
+
         val startingDir = gyro.angle
         telemetry["Starting Direction"] = startingDir
         telemetry.update()
@@ -85,10 +89,10 @@ open class AutoQuarryOpMode(
         // Lift grabber and disable color sensor LED
         grabber.lift()
         clamps.moveDown()
-        drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, 30.0)
+        drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, 28.5)
 
         // Move towards the center stone
-        drive(Vector2D(0.0, 1.0), startingDir, backDistance, -31.0)
+        drive(Vector2D(0.0, 1.0), startingDir, backDistance, -28.0)
 
         sleep(200L)
 
@@ -116,10 +120,12 @@ open class AutoQuarryOpMode(
         arm.setHorizontalPower(0.0)
         lowerArm()
 
-        drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, (if (skystonePos == 0) 5 else skystonePos) * 8.0 - 1.5)
+        drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, (if (skystonePos == 0) 5 else skystonePos) * 8.0 - 3.75)
 
         collect(startingDir)
-        drive(colorModifier * 0.5, 0.0, 15.0)
+        drive(colorModifier * 0.5, 0.0, 18.0)
+
+        clamps.moveUp()
     }
 }
 

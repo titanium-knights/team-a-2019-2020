@@ -39,6 +39,9 @@ open class AutoFoundationOpMode(
         sleep(CLAMP_TIME)
 
         drive(Vector2D(0.0, -1.0), startingDir, backDistance, 2.0)
+        drive.forwardWithPower(-0.75)
+        sleep(250L)
+        drive.stop()
 
         clamps.moveUp()
         sleep(CLAMP_TIME)
@@ -47,6 +50,10 @@ open class AutoFoundationOpMode(
         grabber.grab()
         lowerArm()
         drive(colorModifier, 0.0, 19.0)
+
+        drive.forwardWithPower(-1.0)
+        sleep(1000L)
+        drive.stop()
     }
 }
 

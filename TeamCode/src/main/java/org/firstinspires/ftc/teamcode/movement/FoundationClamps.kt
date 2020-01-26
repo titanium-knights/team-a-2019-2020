@@ -30,7 +30,7 @@ class FoundationClamps(
          * @return a BuildSiteClamps object preconfigured for our robot.
          */
         @JvmStatic fun standard(hardwareMap: HardwareMap): FoundationClamps = FoundationClamps(listOf(
-                Clamp(hardwareMap[Servo::class.java, "clamp1"], 0.5, 0.0),
+                Clamp(hardwareMap[Servo::class.java, "clamp1"], 1.0, 0.5),
                 Clamp(hardwareMap[Servo::class.java, "clamp2"], 0.0, 0.5)
         ))
     }

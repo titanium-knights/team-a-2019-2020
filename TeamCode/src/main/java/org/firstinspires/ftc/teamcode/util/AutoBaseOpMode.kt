@@ -127,7 +127,7 @@ fun AutoBaseOpMode.drive(vector: Vector2D, targetAngle: Double, sensor: Distance
         telemetry.update()
 
         sleep(8L)
-    } while ((prevDistance + distance) / 2 - inches >= 3 && opModeIsActive())
+    } while ((prevDistance + distance) / 2 - inches >= 3 && opModeIsActive() && !isStopRequested)
 
     if (stop) {
         drive.stop()
