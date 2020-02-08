@@ -18,6 +18,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://dl.bintray.com/titanium-knights/titanium-knights")
+    }
 }
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
