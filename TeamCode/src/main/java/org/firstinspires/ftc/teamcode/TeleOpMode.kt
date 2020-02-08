@@ -29,8 +29,8 @@ import kotlin.math.max
  Y - Bypass software limits
  DPAD DOWN - Auto down
  */
-@TeleOp(name = "Tele Op Mode (experimental)", group = "* Main")
-class NewTeleOpMode: EventOpMode({
+@TeleOp(name = "Tele Op Mode (final)", group = "* Main")
+class TeleOpMode: EventOpMode({
     val drive = MecanumDrive.standard(hardwareMap)
     val clamps = FoundationClamps.standard(hardwareMap)
     val grabber = Grabber.standard(hardwareMap)
@@ -42,11 +42,11 @@ class NewTeleOpMode: EventOpMode({
 
     val elapsedTime = ElapsedTime()
 
-    var armMode = TeleOpMode.ArmState.MANUAL
+    var armMode = ArmState.MANUAL
     var armModeStartTime = elapsedTime.milliseconds()
-    fun setArmMode(newMode: TeleOpMode.ArmState) {
+    fun setArmMode(newMode: ArmState) {
         if (armMode == newMode) {
-            armMode = TeleOpMode.ArmState.MANUAL
+            armMode = ArmState.MANUAL
         } else {
             armMode = newMode
             armModeStartTime = elapsedTime.milliseconds()
@@ -81,32 +81,32 @@ class NewTeleOpMode: EventOpMode({
     )
 
     doWhen(
-            makeButton(gamepad2::dpad_down).pushed then { setArmMode(TeleOpMode.ArmState.MOVE_DOWN) },
-            makeButton(gamepad2::dpad_up).pushed then { setArmMode(TeleOpMode.ArmState.MOVE_UP) },
-            makeButton(gamepad2::dpad_right).pushed then { setArmMode(TeleOpMode.ArmState.MOVE_TO_TOUCH_SENSOR) }
+            makeButton(gamepad2::dpad_down).pushed then { setArmMode(ArmState.MOVE_DOWN) },
+            makeButton(gamepad2::dpad_up).pushed then { setArmMode(ArmState.MOVE_UP) },
+            makeButton(gamepad2::dpad_right).pushed then { setArmMode(ArmState.MOVE_TO_TOUCH_SENSOR) }
     )
 
     registerLoopHook {
         if (elapsedTime.milliseconds() - armModeStartTime > 3 || gamepad2.left_stick_y > 0 || gamepad2.right_stick_x > 0) {
-            armMode = TeleOpMode.ArmState.MANUAL
+            armMode = ArmState.MANUAL
         }
 
         if (when (armMode) {
-                    TeleOpMode.ArmState.MOVE_DOWN -> armDistance.getDistance(DistanceUnit.INCH) < 4.2
-                    TeleOpMode.ArmState.MOVE_UP -> armDistance.getDistance(DistanceUnit.INCH) > 6.5
-                    TeleOpMode.ArmState.MOVE_TO_TOUCH_SENSOR -> armTouch.isPressed
+                    ArmState.MOVE_DOWN -> armDistance.getDistance(DistanceUnit.INCH) < 4.2
+                    ArmState.MOVE_UP -> armDistance.getDistance(DistanceUnit.INCH) > 6.5
+                    ArmState.MOVE_TO_TOUCH_SENSOR -> armTouch.isPressed
                     else -> true
                 }) {
-            armMode = TeleOpMode.ArmState.MANUAL
+            armMode = ArmState.MANUAL
         }
 
         val horizontal = when (armMode) {
-            TeleOpMode.ArmState.MOVE_TO_TOUCH_SENSOR -> 0.65
+            ArmState.MOVE_TO_TOUCH_SENSOR -> 0.65
             else -> gamepad2.right_stick_x.toDouble()
         }
         val vertical = when (armMode) {
-            TeleOpMode.ArmState.MOVE_UP -> 0.8
-            TeleOpMode.ArmState.MOVE_DOWN -> -1.0
+            ArmState.MOVE_UP -> 0.8
+            ArmState.MOVE_DOWN -> -1.0
             else -> {
                 if (!bypass && armDistance.getDistance(DistanceUnit.INCH) < 4.2) {
                     max(0.0, -gamepad2.left_stick_y.toDouble())
@@ -119,10 +119,10 @@ class NewTeleOpMode: EventOpMode({
 
         telemetry += "=== ARM ==="
         telemetry += "Mode: ${when (armMode) {
-            TeleOpMode.ArmState.MOVE_UP -> "Auto Up"
-            TeleOpMode.ArmState.MOVE_DOWN -> "Auto Down"
-            TeleOpMode.ArmState.MOVE_TO_TOUCH_SENSOR -> "Auto Right"
-            TeleOpMode.ArmState.MANUAL -> "Manual"
+            ArmState.MOVE_UP -> "Auto Up"
+            ArmState.MOVE_DOWN -> "Auto Down"
+            ArmState.MOVE_TO_TOUCH_SENSOR -> "Auto Right"
+            ArmState.MANUAL -> "Manual"
         }}"
         telemetry += ""
         telemetry += "Horizontal: %.2f" % arrayOf(horizontal)
@@ -132,4 +132,6 @@ class NewTeleOpMode: EventOpMode({
         telemetry += "(%06.2f in)" % arrayOf(armDistance.getDistance(DistanceUnit.INCH))
         telemetry += "   Floor   "
     }
-})
+}) {
+    enum class ArmState { MANUAL, MOVE_DOWN, MOVE_UP, MOVE_TO_TOUCH_SENSOR }
+}
