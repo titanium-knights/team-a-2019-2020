@@ -1,13 +1,11 @@
 package org.firstinspires.ftc.teamcode
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit
-import org.firstinspires.ftc.teamcode.sensors.Gyro
 import org.firstinspires.ftc.teamcode.sensors.StandardSensors
-import org.firstinspires.ftc.teamcode.util.AutoBaseOpMode
+import org.firstinspires.ftc.teamcode.auto.AutoBaseOpMode
 import org.firstinspires.ftc.teamcode.util.Vector2D
-import org.firstinspires.ftc.teamcode.util.drive
+import org.firstinspires.ftc.teamcode.auto.drive
 import java.lang.RuntimeException
 
 @Autonomous(name = "Smart Drive Test", group = "Tests")

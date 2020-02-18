@@ -1,5 +1,6 @@
-package org.firstinspires.ftc.teamcode.util
+package org.firstinspires.ftc.teamcode.auto
 
+import com.acmerobotics.dashboard.config.Config
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.hardware.DistanceSensor
 import com.qualcomm.robotcore.util.ElapsedTime
@@ -9,9 +10,9 @@ import org.firstinspires.ftc.teamcode.movement.MecanumDrive
 import org.firstinspires.ftc.teamcode.sensors.BNO055IMUGyro
 import org.firstinspires.ftc.teamcode.sensors.Gyro
 import org.firstinspires.ftc.teamcode.sensors.StandardSensors
+import org.firstinspires.ftc.teamcode.util.Vector2D
+import org.firstinspires.ftc.teamcode.util.set
 import kotlin.math.abs
-import kotlin.math.max
-import kotlin.math.min
 import kotlin.math.sign
 
 /**

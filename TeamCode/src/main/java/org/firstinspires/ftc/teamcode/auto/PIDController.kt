@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode.util
+package org.firstinspires.ftc.teamcode.auto
 
 import com.qualcomm.robotcore.util.ElapsedTime
 
 class PIDController(
-        var Kp: Double,
-        var Ki: Double,
-        var Kd: Double
+        @JvmField var Kp: Double,
+        @JvmField var Ki: Double,
+        @JvmField var Kd: Double
 ) {
     private var integral: Double = 0.0
     private var previous: Double = 0.0

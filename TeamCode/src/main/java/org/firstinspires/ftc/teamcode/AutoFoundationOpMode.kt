@@ -2,6 +2,10 @@ package org.firstinspires.ftc.teamcode
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.hardware.DistanceSensor
+import org.firstinspires.ftc.teamcode.auto.AutoBaseOpMode
+import org.firstinspires.ftc.teamcode.auto.drive
+import org.firstinspires.ftc.teamcode.auto.lowerArm
+import org.firstinspires.ftc.teamcode.auto.raiseArm
 import org.firstinspires.ftc.teamcode.movement.FoundationClamps
 import org.firstinspires.ftc.teamcode.movement.Grabber
 import org.firstinspires.ftc.teamcode.sensors.StandardSensors

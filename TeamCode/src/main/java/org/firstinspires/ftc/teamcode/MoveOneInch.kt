@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
-import org.firstinspires.ftc.teamcode.util.AutoBaseOpMode
-import org.firstinspires.ftc.teamcode.util.drive
+import org.firstinspires.ftc.teamcode.auto.AutoBaseOpMode
+import org.firstinspires.ftc.teamcode.auto.drive
 
 @Autonomous(name = "Move Three Inches")
 class MoveThreeInches: AutoBaseOpMode(MILLISECONDS_PER_INCH) {

@@ -58,17 +58,20 @@ class TeleOpMode: EventOpMode({
         bypass = gamepad1.y
     }
 
-    val slow = makeToggleButton(gamepad1::x)
+    var isSlow = false
     registerLoopHook {
         val vector = Vector2D(gamepad1.left_stick_x.toDouble(), -gamepad1.left_stick_y.toDouble())
         val turn = gamepad1.right_stick_x.toDouble()
-        val power = if (slow.selection) 0.3 else 1.0
-        drive.move(power, vector, turn, MecanumDrive.TurnBehavior.ADDSUBTRACT)
+        val power = if (isSlow) 0.3 else 1.0
+        drive.move(power, vector, turn * power, MecanumDrive.TurnBehavior.ADDSUBTRACT)
 
         telemetry += "=== DRIVE ==="
         telemetry += "(%.2f, %.2f) @ %.2f, Turn = %.2f" % arrayOf(vector.x, vector.y, power, turn)
         telemetry += ""
     }
+
+    doWhen(gamepad1::x.pressed) { isSlow = true }
+    doWhen(gamepad1::b.pressed) { isSlow = false }
 
     doWhen(
             makeButton(gamepad1::left_bumper).pushed then { clamps.moveDown() },
