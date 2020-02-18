@@ -30,7 +30,7 @@ open class AutoBaseOpMode(
     val standardSensors by lazy { StandardSensors(hardwareMap) }
     val armDistance by lazy { standardSensors.armDistanceSensor }
     val gyro: Gyro by lazy { BNO055IMUGyro.standard(hardwareMap) }
-    val pidController = PIDController(1.0 / 10, 0.0, 0.0)
+    val pidController = PIDController(1.0 / 30, 0.0, 0.0)
     val elapsedTime by lazy { ElapsedTime() }
 
     /**
@@ -56,9 +56,9 @@ open class AutoBaseOpMode(
  */
 fun AutoBaseOpMode.drive(x: Double, y: Double, inches: Double) {
     if (inches < 0) {
-        drive.move(-1.0, MecanumDrive.Motor.Vector2D(x, y), 0.0)
+        drive.move(-0.5, MecanumDrive.Motor.Vector2D(x, y), 0.0)
     } else {
-        drive.move(1.0, MecanumDrive.Motor.Vector2D(x, y), 0.0)
+        drive.move(0.5, MecanumDrive.Motor.Vector2D(x, y), 0.0)
     }
     sleep((msPerInch * abs(inches)).toLong())
     drive.stop()
@@ -113,21 +113,21 @@ fun AutoBaseOpMode.drive(vector: Vector2D, targetAngle: Double, sensor: Distance
         distance = sensor.getDistance(DistanceUnit.INCH) * sign(inches)
         val avgDistance = (prevDistance + distance) / 2
 
-        val power = if (stop) ((avgDistance - inches) / 18).coerceIn(0.2..1.0) else 1.0
+        val power = if (stop) ((avgDistance - inches) / 18).coerceIn(0.5..1.0) else 1.0
 
         val currentAngle = gyro.angle
         val now = elapsedTime.milliseconds()
         val turn = pidController.evaluate(currentAngle, targetAngle, now - previous)
         previous = now
 
-        drive.move(power, vector, turn, MecanumDrive.TurnBehavior.ADDSUBTRACT)
+        drive.move(power / 2, vector, turn / 2, MecanumDrive.TurnBehavior.ADDSUBTRACT)
         onLoop(distance)
 
         telemetry["Distance"] = distance
         telemetry.update()
 
         sleep(8L)
-    } while ((prevDistance + distance) / 2 - inches >= 3 && opModeIsActive() && !isStopRequested)
+    } while ((prevDistance + distance) / 2 - inches >= 5 && opModeIsActive() && !isStopRequested)
 
     if (stop) {
         drive.stop()
