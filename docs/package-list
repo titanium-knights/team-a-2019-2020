@@ -2,6 +2,7 @@ $dokka.format:html
 $dokka.linkExtension:html
 $dokka.location:org.firstinspires.ftc.teamcode.util$rem(kotlin.String, kotlin.Array((kotlin.Any)))org.firstinspires.ftc.teamcode.util/kotlin.-string/rem.html
 org.firstinspires.ftc.teamcode
+org.firstinspires.ftc.teamcode.auto
 org.firstinspires.ftc.teamcode.movement
 org.firstinspires.ftc.teamcode.sensors
 org.firstinspires.ftc.teamcode.util
