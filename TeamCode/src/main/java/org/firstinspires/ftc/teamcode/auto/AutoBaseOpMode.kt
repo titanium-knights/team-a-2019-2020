@@ -74,6 +74,31 @@ fun AutoBaseOpMode.drive(x: Int, y: Int, inches: Int) {
     drive(x.toDouble(), y.toDouble(), inches.toDouble())
 }
 
+fun AutoBaseOpMode.drive(x: Double, y: Double, inches: Double, targetAngle: Double) {
+    val start = elapsedTime.milliseconds()
+    var previous = start
+    val time = msPerInch * abs(inches)
+
+    pidController.reset()
+
+    sleep(10L)
+
+    do {
+        val currentAngle = gyro.angle
+        val now = elapsedTime.milliseconds()
+        val turn = pidController.evaluate(currentAngle, targetAngle, now - previous)
+        previous = now
+
+        drive.move(0.5, MecanumDrive.Motor.Vector2D(x, y), turn / 2, MecanumDrive.TurnBehavior.ADDSUBTRACT)
+
+        telemetry.update()
+
+        sleep(8L)
+    } while ((now - start) < time && opModeIsActive() && !isStopRequested)
+
+    drive.stop()
+}
+
 fun AutoBaseOpMode.raiseArm() {
     arm.setVerticalPower(0.8)
     while (armDistance.getDistance(DistanceUnit.INCH) < 6.3) {
@@ -82,17 +107,17 @@ fun AutoBaseOpMode.raiseArm() {
     arm.stop()
 }
 
-fun AutoBaseOpMode.lowerArm() {
+fun AutoBaseOpMode.lowerArm(thing: Boolean = false) {
     arm.setVerticalPower(-1.0)
-    while (armDistance.getDistance(DistanceUnit.INCH) > 4.2 && opModeIsActive()) {
+    while (armDistance.getDistance(DistanceUnit.INCH) > 4.2 && (opModeIsActive() || thing)) {
         idle()
     }
     arm.stop()
 }
 
-fun AutoBaseOpMode.turn(target: Double) {
+fun AutoBaseOpMode.turn(target: Double, speed: Double = 0.3) {
     if (abs(gyro.angle - target) > 2) {
-        drive.steerWithPower(0.2, sign(target - gyro.angle))
+        drive.steerWithPower(speed, sign(target - gyro.angle))
         while (abs(target - gyro.angle) > 2) {
             idle()
         }

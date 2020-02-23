@@ -55,7 +55,7 @@ class TeleOpMode: EventOpMode({
 
     var bypass = false
     registerLoopHook {
-        bypass = gamepad1.y
+        bypass = gamepad1.y || gamepad2.y
     }
 
     var isSlow = false

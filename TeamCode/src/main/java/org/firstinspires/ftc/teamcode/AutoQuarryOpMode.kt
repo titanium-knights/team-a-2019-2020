@@ -1,14 +1,13 @@
 package org.firstinspires.ftc.teamcode
 
+import com.acmerobotics.dashboard.config.Config
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.hardware.ColorSensor
 import com.qualcomm.robotcore.hardware.DistanceSensor
-import org.firstinspires.ftc.teamcode.auto.AutoBaseOpMode
-import org.firstinspires.ftc.teamcode.auto.drive
-import org.firstinspires.ftc.teamcode.auto.lowerArm
-import org.firstinspires.ftc.teamcode.auto.raiseArm
+import org.firstinspires.ftc.teamcode.auto.*
 import org.firstinspires.ftc.teamcode.movement.FoundationClamps
 import org.firstinspires.ftc.teamcode.movement.Grabber
+import org.firstinspires.ftc.teamcode.movement.MecanumDrive
 import org.firstinspires.ftc.teamcode.util.*
 import kotlin.math.abs
 import kotlin.math.sign
@@ -37,32 +36,6 @@ open class AutoQuarryOpMode(
 
     private val grabberTime = 1000L
 
-    fun collect(startingDir: Double) {
-        drive(Vector2D(0.0, 1.0), startingDir, backDistance, -35.0)
-        grabber.grab()
-        sleep(grabberTime)
-        raiseArm()
-
-        // Push back
-        drive(Vector2D(0.0, -1.0), startingDir, backDistance, 24.5)
-
-        // Cross skybridge
-        drive(Vector2D(-colorModifier, 0.0), startingDir, sideDistance, -50.0, false)
-        // drive(-colorModifier, 0.0, 44.0)
-        drive(Vector2D(-colorModifier, 0.0), startingDir, otherSideDistance, 50.0)
-
-        // Release stone
-        arm.setVerticalPower(1.0)
-        grabber.lift()
-        sleep(700L)
-        arm.stop()
-
-        drive(colorModifier * 0.5, 0.0, 15.0)
-        arm.setVerticalPower(-1.0)
-        sleep(700L)
-        arm.stop()
-    }
-
     override fun runOpMode() {
         super.runOpMode()
 
@@ -73,6 +46,7 @@ open class AutoQuarryOpMode(
         telemetry["Status"] = "Initialized"
         telemetry.update()
 
+        // lowerArm(true)
         waitForStart()
 
         if (isStopRequested) {
@@ -86,43 +60,108 @@ open class AutoQuarryOpMode(
         // Lift grabber and disable color sensor LED
         grabber.lift()
         clamps.moveDown()
-        drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, 28.5)
 
         // Move towards the center stone
-        drive(Vector2D(0.0, 1.0), startingDir, backDistance, -24.0)
+        drive(Vector2D(0.0, 1.0), startingDir, backDistance, -AutoQuarryConfig.approachDist)
 
-        sleep(200L)
+        sleep(AutoQuarryConfig.approachDelay.toLong())
 
         // Move right, checking for the skystone
         val left = leftColorSensor.red().toDouble() / leftColorSensor.green()
         val right = rightColorSensor.red().toDouble() / rightColorSensor.green()
 
         skystonePos = when {
-            abs(left - right) < 0.04 -> 1
+            abs(left - right) < AutoQuarryConfig.colorThres -> 1
             left < right -> 2
             else -> 0
         }
 
-        skystonePos = sign(colorModifier).toInt() * (skystonePos - 1) + 1
-
-        when (skystonePos) {
-            2 -> drive(Vector2D(-colorModifier, 0.0), startingDir, sideDistance, -42.5)
-            0 -> drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, 18.5)
+        if (colorModifier < 0) {
+            skystonePos = 2 - skystonePos
         }
 
-        collect(startingDir)
+        when (skystonePos) {
+            2 -> drive(Vector2D(-colorModifier, 0.0), startingDir, sideDistance, -44.0)
+            0 -> drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, 20.0)
+        }
 
-        arm.setPowers(0.5, 0.0)
-        sleep(200L)
-        arm.setHorizontalPower(0.0)
-        lowerArm()
+        drive(Vector2D(0.0, 1.0), startingDir, backDistance, -35.0)
+        grabber.grab()
+        sleep(grabberTime)
+        raiseArm()
 
-        drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, (if (skystonePos == 0) 5 else skystonePos) * 8.0 - 4.75)
+        val transitInches = AutoQuarryConfig.transitInches - skystonePos * AutoQuarryConfig.transitMul
+        drive(Vector2D(0.0, -1.0), startingDir, backDistance, if (colorModifier > 0) transitInches else 23.0)
 
-        collect(startingDir)
-        drive(colorModifier * 0.5, 0.0, 18.0)
-
+        drive(-colorModifier * 4.0, 0.0, 48.0, startingDir)
+        if (colorModifier > 0) {
+            drive(Vector2D(0.0, -1.0), startingDir, backDistance, transitInches)
+        }
         clamps.moveUp()
+        drive(Vector2D(-colorModifier, 0.0), startingDir, otherSideDistance, 20.0)
+        arm.setVerticalPower(1.0)
+        sleep(150L)
+        arm.stop()
+
+        drive(0.0, AutoQuarryConfig.bumpPower, AutoQuarryConfig.bumpDist)
+        clamps.moveDown()
+        grabber.lift()
+        sleep(AutoQuarryConfig.moveHorizontalTime.toLong())
+        drive(0.0, -3.0, 16.0, startingDir)
+
+        val newAngle = startingDir - colorModifier * 90
+        turn(newAngle, AutoQuarryConfig.turnFastSpeed)
+        drive(0.0, 1.0, 10.0)
+        clamps.moveUp()
+
+        if (colorModifier > 0) {
+            drive(-1.0, 0.0, 3.0, newAngle)
+        }
+
+        drive(0.0, -1.0, 12.0, newAngle)
+        clamps.moveDown()
+        arm.setHorizontalPower(1.0)
+        sleep(300L)
+        arm.stop()
+        lowerArm()
+        drive(0.0, -3.0, 30.0, newAngle)
+        turn(startingDir)
+
+        drive(Vector2D(colorModifier, 0.0), startingDir, sideDistance, if (skystonePos == 0) 0.000001 else (skystonePos * 8.0 - AutoQuarryConfig.adjMid - colorModifier * AutoQuarryConfig.adjMul))
+        drive(Vector2D(0.0, 1.0), startingDir, backDistance, -35.0)
+        grabber.grab()
+        sleep(grabberTime)
+        raiseArm()
+        drive(Vector2D(0.0, -1.0), startingDir, backDistance, 28.0)
+        turn(newAngle + colorModifier * 10)
+        drive(0.0, 3.0, 28.0 + (2 - skystonePos) * 8.0, newAngle)
+        clamps.moveUp()
+        arm.setVerticalPower(1.0)
+        sleep(150L)
+        arm.stop()
+        drive(0.0, 3.0, 25.0, newAngle)
+        grabber.lift()
+        sleep(grabberTime)
+        drive(0.0, -3.0, 10.0, newAngle)
+        grabber.grab()
+        arm.setVerticalPower(-1.0)
+        sleep(150L)
+        arm.stop()
+        drive(0.0, -3.0, 10.0, newAngle)
+    }
+
+    @Config object AutoQuarryConfig {
+        @JvmField var moveHorizontalTime = 300
+        @JvmField var turnFastSpeed = 0.7
+        @JvmField var transitInches = 27.0
+        @JvmField var approachDist = 20.0
+        @JvmField var adjMid = 6.0
+        @JvmField var adjMul = -0.0
+        @JvmField var bumpDist = 28.0
+        @JvmField var bumpPower = 0.5
+        @JvmField var colorThres = 0.035
+        @JvmField var approachDelay = 500
+        @JvmField var transitMul = 0.5
     }
 }
 
