@@ -107,7 +107,7 @@ open class AutoQuarryOpMode(
         clamps.moveDown()
         grabber.lift()
         sleep(AutoQuarryConfig.moveHorizontalTime.toLong())
-        drive(0.0, -3.0, 16.0, startingDir)
+        drive(0.0, -3.0, AutoQuarryConfig.pushDist, startingDir)
 
         val newAngle = startingDir - colorModifier * 90
         turn(newAngle, AutoQuarryConfig.turnFastSpeed)
@@ -115,7 +115,7 @@ open class AutoQuarryOpMode(
         clamps.moveUp()
 
         if (colorModifier > 0) {
-            drive(-1.0, 0.0, 3.0, newAngle)
+            drive(-1.0, 0.0, AutoQuarryConfig.adjStrafe, newAngle)
         }
 
         drive(0.0, -1.0, 12.0, newAngle)
@@ -162,6 +162,8 @@ open class AutoQuarryOpMode(
         @JvmField var colorThres = 0.035
         @JvmField var approachDelay = 500
         @JvmField var transitMul = 0.5
+        @JvmField var pushDist = 20.0
+        @JvmField var adjStrafe = 6.0
     }
 }
 
