@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.config.Config
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.hardware.ColorSensor
 import com.qualcomm.robotcore.hardware.DistanceSensor
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit
 import org.firstinspires.ftc.teamcode.auto.*
 import org.firstinspires.ftc.teamcode.movement.FoundationClamps
 import org.firstinspires.ftc.teamcode.movement.Grabber
@@ -43,11 +44,15 @@ open class AutoQuarryOpMode(
         backDistance
         sideDistance
 
-        telemetry["Status"] = "Initialized"
-        telemetry.update()
-
-        // lowerArm(true)
-        waitForStart()
+        while (!isStopRequested && !opModeIsActive()) {
+            telemetry["Status"] = "Initialized"
+            telemetry["Arm Distance"] = armDistance.getDistance(DistanceUnit.INCH)
+            telemetry["Side Distance"] = sideDistance.getDistance(DistanceUnit.INCH)
+            telemetry["Other Side Distance"] = otherSideDistance.getDistance(DistanceUnit.INCH)
+            telemetry["Back Distance"] = backDistance.getDistance(DistanceUnit.INCH)
+            telemetry.update()
+            idle()
+        }
 
         if (isStopRequested) {
             return;
@@ -100,7 +105,7 @@ open class AutoQuarryOpMode(
         clamps.moveUp()
         drive(Vector2D(-colorModifier, 0.0), startingDir, otherSideDistance, 20.0)
         arm.setVerticalPower(1.0)
-        sleep(150L)
+        sleep(250L)
         arm.stop()
 
         drive(0.0, AutoQuarryConfig.bumpPower, AutoQuarryConfig.bumpDist)
@@ -114,9 +119,7 @@ open class AutoQuarryOpMode(
         drive(0.0, 1.0, 10.0)
         clamps.moveUp()
 
-        if (colorModifier > 0) {
-            drive(-1.0, 0.0, AutoQuarryConfig.adjStrafe, newAngle)
-        }
+        drive(-colorModifier, 0.0, AutoQuarryConfig.adjStrafe, newAngle)
 
         drive(0.0, -1.0, 12.0, newAngle)
         clamps.moveDown()
@@ -132,7 +135,7 @@ open class AutoQuarryOpMode(
         grabber.grab()
         sleep(grabberTime)
         raiseArm()
-        drive(Vector2D(0.0, -1.0), startingDir, backDistance, 28.0)
+        drive(0.0, -1.0, AutoQuarryConfig.moveBackDist, startingDir)
         turn(newAngle + colorModifier * 10)
         drive(0.0, 3.0, 28.0 + (2 - skystonePos) * 8.0, newAngle)
         clamps.moveUp()
@@ -147,23 +150,27 @@ open class AutoQuarryOpMode(
         arm.setVerticalPower(-1.0)
         sleep(150L)
         arm.stop()
-        drive(0.0, -3.0, 10.0, newAngle)
+        drive(0.0, -3.0, AutoQuarryConfig.parkDist, newAngle)
     }
 
     @Config object AutoQuarryConfig {
-        @JvmField var moveHorizontalTime = 300
+        @JvmField var moveHorizontalTime = 500
         @JvmField var turnFastSpeed = 0.7
-        @JvmField var transitInches = 27.0
+        @JvmField var transitInches = 26.0
         @JvmField var approachDist = 20.0
         @JvmField var adjMid = 6.0
         @JvmField var adjMul = -0.0
         @JvmField var bumpDist = 28.0
         @JvmField var bumpPower = 0.5
-        @JvmField var colorThres = 0.035
+        @JvmField var colorThres = 0.03
         @JvmField var approachDelay = 500
         @JvmField var transitMul = 0.5
         @JvmField var pushDist = 20.0
-        @JvmField var adjStrafe = 6.0
+        @JvmField var adjStrafe = 5.0
+        @JvmField var secondTransitInchesBlue = 26.0
+        @JvmField var parkDist = 12.0
+        @JvmField var secondTransitInchesRed = 24.0
+        @JvmField var moveBackDist = 7.5
     }
 }
 
