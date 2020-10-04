@@ -56,14 +56,10 @@ class BNO055IMUGyro(val imu: BNO055IMU, val parameters: BNO055IMU.Parameters): G
     override fun calibrate() {}
     override val isCalibrated get() = imu.isGyroCalibrated
 
-    /**
-     * A number which all gyro measurements are multiplied by. Used to ensure that getAbsoluteAngle() conforms to the spec laid out in Gyro.
-     * You don't need to know how this works to use IMUGyro.
-     */
-    val angleModifier = -1.0
-
     override val angle get() =
             imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle.toDouble() * angleModifier
+
+    val angleModifier = -1.0
 
     companion object {
         val IMU_NAME = "imu"

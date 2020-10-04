@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode
 
+import com.acmerobotics.dashboard.config.Config
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.util.ElapsedTime
 import io.github.titanium_knights.stunning_waddle.*
@@ -12,7 +13,9 @@ import org.firstinspires.ftc.teamcode.sensors.StandardSensors
 import org.firstinspires.ftc.teamcode.util.Vector2D
 import org.firstinspires.ftc.teamcode.util.plusAssign
 import org.firstinspires.ftc.teamcode.util.rem
+import kotlin.math.abs
 import kotlin.math.max
+import kotlin.math.min
 
 /*
  Gamepad 1:
@@ -42,15 +45,18 @@ class TeleOpMode: EventOpMode({
 
     val elapsedTime = ElapsedTime()
 
-    var armMode = ArmState.MANUAL
-    var armModeStartTime = elapsedTime.milliseconds()
-    fun setArmMode(newMode: ArmState) {
-        if (armMode == newMode) {
-            armMode = ArmState.MANUAL
-        } else {
-            armMode = newMode
-            armModeStartTime = elapsedTime.milliseconds()
-        }
+    var previousTime = 0.0
+    var currentTime = 0.0
+    var deltaTime = 0.0
+
+    registerStartHook {
+        currentTime = elapsedTime.milliseconds()
+    }
+
+    registerLoopHook {
+        previousTime = currentTime
+        currentTime = elapsedTime.milliseconds()
+        deltaTime = currentTime - previousTime
     }
 
     var bypass = false
@@ -83,58 +89,47 @@ class TeleOpMode: EventOpMode({
             makeButton(gamepad2::right_bumper).pushed then { grabber.lift() }
     )
 
-    doWhen(
-            makeButton(gamepad2::dpad_down).pushed then { setArmMode(ArmState.MOVE_DOWN) },
-            makeButton(gamepad2::dpad_up).pushed then { setArmMode(ArmState.MOVE_UP) },
-            makeButton(gamepad2::dpad_right).pushed then { setArmMode(ArmState.MOVE_TO_TOUCH_SENSOR) }
-    )
+    var horizontalTarget = 0.0
+    var verticalTarget = 0.0
+
+    var horizontalActual = 0.0
+    var verticalActual = 0.0
 
     registerLoopHook {
-        if (elapsedTime.milliseconds() - armModeStartTime > 3 || gamepad2.left_stick_y > 0 || gamepad2.right_stick_x > 0) {
-            armMode = ArmState.MANUAL
+        val verticalRamp = if (abs(verticalActual) < abs(verticalTarget)) {
+            TeleOpConfig.armVerticalRampUp
+        } else {
+            TeleOpConfig.armVerticalRampDown
         }
 
-        if (when (armMode) {
-                    ArmState.MOVE_DOWN -> armDistance.getDistance(DistanceUnit.INCH) < 4.2
-                    ArmState.MOVE_UP -> armDistance.getDistance(DistanceUnit.INCH) > 6.5
-                    ArmState.MOVE_TO_TOUCH_SENSOR -> armTouch.isPressed
-                    else -> true
-                }) {
-            armMode = ArmState.MANUAL
+        verticalActual = if (bypass || verticalRamp == 0.0 || verticalActual == verticalTarget) {
+            verticalTarget
+        } else if (verticalActual < verticalTarget) {
+            min(verticalTarget, verticalActual + deltaTime / verticalRamp)
+        } else {
+            max(verticalTarget, verticalActual - deltaTime / verticalRamp)
         }
+    }
 
-        val horizontal = when (armMode) {
-            ArmState.MOVE_TO_TOUCH_SENSOR -> 0.65
-            else -> gamepad2.right_stick_x.toDouble()
-        }
-        val vertical = when (armMode) {
-            ArmState.MOVE_UP -> 0.8
-            ArmState.MOVE_DOWN -> -1.0
-            else -> {
-                if (!bypass && armDistance.getDistance(DistanceUnit.INCH) < 4.2) {
-                    max(0.0, -gamepad2.left_stick_y.toDouble())
-                } else {
-                    -gamepad2.left_stick_y.toDouble()
-                }
-            }
-        }
-        arm.setPowers(horizontal, vertical)
+    registerLoopHook {
+        arm.setPowers(horizontalActual, verticalActual)
+    }
 
+    registerLoopHook {
         telemetry += "=== ARM ==="
-        telemetry += "Mode: ${when (armMode) {
-            ArmState.MOVE_UP -> "Auto Up"
-            ArmState.MOVE_DOWN -> "Auto Down"
-            ArmState.MOVE_TO_TOUCH_SENSOR -> "Auto Right"
-            ArmState.MANUAL -> "Manual"
-        }}"
         telemetry += ""
-        telemetry += "Horizontal: %.2f" % arrayOf(horizontal)
-        telemetry += "Vertical: %.2f" % arrayOf(vertical)
+        telemetry += "Horizontal: %.2f (%.2f)" % arrayOf(horizontalTarget, horizontalActual)
+        telemetry += "Vertical: %.2f (%.2f)" % arrayOf(verticalTarget, verticalActual)
         telemetry += ""
         telemetry += if (armTouch.isPressed) "•   Arm" else "    Arm"
         telemetry += "(%06.2f in)" % arrayOf(armDistance.getDistance(DistanceUnit.INCH))
         telemetry += "   Floor   "
     }
-}) {
-    enum class ArmState { MANUAL, MOVE_DOWN, MOVE_UP, MOVE_TO_TOUCH_SENSOR }
+})
+
+@Config object TeleOpConfig {
+    @JvmField var armHorizontalRampUp = 1000.0
+    @JvmField var armHorizontalRampDown = 500.0
+    @JvmField var armVerticalRampUp = 500.0
+    @JvmField var armVerticalRampDown = 200.0
 }

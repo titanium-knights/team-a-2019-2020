@@ -55,7 +55,7 @@ open class AutoQuarryOpMode(
         }
 
         if (isStopRequested) {
-            return;
+            return
         }
 
         val startingDir = gyro.angle
@@ -71,12 +71,11 @@ open class AutoQuarryOpMode(
 
         sleep(AutoQuarryConfig.approachDelay.toLong())
 
-        // Move right, checking for the skystone
         val left = leftColorSensor.red().toDouble() / leftColorSensor.green()
         val right = rightColorSensor.red().toDouble() / rightColorSensor.green()
 
         skystonePos = when {
-            abs(left - right) < AutoQuarryConfig.colorThres -> 1
+            abs(left - right) < 0.03 -> 1
             left < right -> 2
             else -> 0
         }
